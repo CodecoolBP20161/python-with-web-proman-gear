@@ -1,14 +1,17 @@
-/**
- * Created by kakacsu on 2016.10.03..
- */
-var Board = new Object();
-Board.title = "";
-Board.id = 0;
+function Board(title, id) {
+    this.title = title
+    this.id = id
+}
 
-var highestId = localStorage.getItem('highestId') || 0;
-function fillBoradDetails(){
-    Board.id = highestId++;
-    highestId = parseInt(highestId++);
+function generateUniqueId(){
+    var highestId = parseInt(localStorage.getItem('highestId')) || 0;
+    highestId++;
     localStorage.setItem('highestId', highestId);
-    Board.title = prompt("Please give a name to your board");
+    return highestId
+}
+
+function fillBoardDetails(){
+    var title = prompt("Please give a name to your board");
+    var id = generateUniqueId()
+    var newBoard = new Board(title, id);
 }
