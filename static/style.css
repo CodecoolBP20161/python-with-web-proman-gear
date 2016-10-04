@@ -10,3 +10,14 @@
     color: gainsboro;
 
 }
+
+
+.modal-content{
+    background-color: lightgray;
+
+}
+
+.form-control{
+    background-color: whitesmoke;
+    margin-bottom: 1cm;
+}

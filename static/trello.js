@@ -16,13 +16,6 @@ function fillBoardDetails() {
     return new Board(title, id);
 }
 
-var board1 = new Board('egy', 1);
-var board2 = new Board('ketto', 2);
-var board3 = new Board('harom', 3);
-
-var testObject = [board1, board2, board3];
-localStorage.setItem('boards', JSON.stringify(testObject));
-
 function myLocalStorage() {
 
     this.getBoards= function() {
@@ -37,8 +30,6 @@ function myLocalStorage() {
         localStorage.setItem('boards', JSON.stringify(boards));
     };
 }
-
-
 
 function myStorage() {
 
@@ -56,11 +47,18 @@ function myStorage() {
 }
 
 $(document).ready(function() {
+    var storage = new myStorage();
+    var boards = storage.getBoards();
+    for(var i=0;  i<boards.length; i++){
+        $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board">' + boards[i].title +'</button></div>')
+    };
     $('#save_board').click(function() {
         var board = fillBoardDetails();
-        var storage = new myStorage()
         storage.saveBoard(board);
         $('#myModal').modal('hide');
-        $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block">' + board.title +'</button></div>')
+        $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board">' + board.title +'</button></div>')
+    });
+    $('.board').click(function() {
+        $('.container').hide();
     });
 });
