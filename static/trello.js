@@ -34,6 +34,24 @@ function MyLocalStorage() {
         localStorage.setItem('boards', JSON.stringify(boards));
 
     };
+
+    this.getCardsForBoards = function(){
+        var cardlist = localStorage.getItem('cards');
+        cardlist = JSON.parse(cardlist);
+        return cardlist;
+    };
+
+    this.saveCards = function(card) {
+    var cards = this.getCardsFromBoards();
+    if (cards){
+        cards.push(card);
+    } else {
+        cards = [card];
+    }
+    localStorage.setItem('cards', JSON.stringify(cards));
+
+    };
+
 }
 
 function myStorage() {
@@ -72,10 +90,34 @@ $(document).ready(function() {
     // });
     $(document).on("click",".board", function () {
         $('.container').hide();
-        var id = $(this).attr('id');
-        console.log(id);
+        // var title = $('input').val();
+        var title = prompt("Add title here");
+        var id = generateUniqueCardId();
+        var cardLocation = $(this).attr('id');
+        var newCard = new Card(title, id, cardLocation)
+        console.log(newCard.title + newCard.id + newCard.cardLocation);
 
 
     })
 
 });
+function Card(title, id, cardLocation) {
+    this.title = title;
+    this.id = id;
+    this.cardLocation = cardLocation;
+}
+
+function generateUniqueCardId(){
+    var highestCardId = parseInt(localStorage.getItem('highestCardId')) || 0;
+    highestCardId++;
+    localStorage.setItem('highestCardId', highestCardId);
+    return highestCardId
+}
+
+function fillCardDetails() {
+    var title = $('input').val();
+    var id = generateUniqueCardId();
+    var cardLocation = board.id;
+    return new Card(title, id, cardLocation);
+}
+
