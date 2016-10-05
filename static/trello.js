@@ -66,7 +66,13 @@ $(document).ready(function() {
         $('#myModal').modal('hide');
         $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
     });
-    $('.board').click(function() {
+    // $('.board').click(function() {
+    //     $('.container').hide();
+    // });
+    $(documnet).on("click",".board", function () {
         $('.container').hide();
-    });
+
+
+    })
+
 });
