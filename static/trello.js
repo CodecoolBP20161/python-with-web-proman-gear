@@ -69,8 +69,10 @@ $(document).ready(function() {
     // $('.board').click(function() {
     //     $('.container').hide();
     // });
-    $(documnet).on("click",".board", function () {
+    $(document).on("click",".board", function () {
         $('.container').hide();
+        var id = $('.board').attr('id');
+        // console.log(id);
 
 
     })
