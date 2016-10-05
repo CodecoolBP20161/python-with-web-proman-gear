@@ -1,3 +1,8 @@
+.btn{
+    white-space:normal !important;
+    word-wrap:break-word;
+}
+
 .btn-block{
     border-radius: 15px;
     margin-bottom: 10px;

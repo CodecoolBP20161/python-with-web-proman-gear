@@ -61,16 +61,16 @@ function MyLocalStorage() {
         return cardlist;
     };
 
-    this.saveCards = function(card) {
-    var cards = this.getCardsFromBoards();
-    if (cards){
-        cards.push(card);
-    } else {
-        cards = [card];
-    }
-    localStorage.setItem('cards', JSON.stringify(cards));
+    this.saveCardsForBoards = function(card) {
+        var cards = this.getCardsForBoards();
+        if (cards){
+            cards.push(card);
+        } else {
+            cards = [card];
+        }
+        localStorage.setItem('cards', JSON.stringify(cards));
 
-    };
+        };
 
 }
 
@@ -87,6 +87,16 @@ function myStorage() {
     this.getBoards = function () {
         return this.implementation().getBoards();
     };
+
+    this.saveCardsForBoards = function (board) {
+        return this.implementation().saveCardsForBoards(board);
+    };
+
+    this.getCardsForBoards = function () {
+        return this.implementation().getCardsForBoards();
+    };
+
+
 }
 
 $(document).ready(function() {
