@@ -16,7 +16,7 @@ function fillBoardDetails() {
     return new Board(title, id);
 }
 
-function myLocalStorage() {
+function MyLocalStorage() {
 
     this.getBoards= function() {
         var boardList = localStorage.getItem('boards');
@@ -39,7 +39,7 @@ function myLocalStorage() {
 function myStorage() {
 
     this.implementation = function () {
-        return new myLocalStorage();
+        return new MyLocalStorage();
     };
 
     this.saveBoard = function (board) {
@@ -64,6 +64,7 @@ $(document).ready(function() {
         var board = fillBoardDetails();
         storage.saveBoard(board);
         $('#myModal').modal('hide');
+        $(".form-control").val("");
         $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
     });
     // $('.board').click(function() {
@@ -71,8 +72,8 @@ $(document).ready(function() {
     // });
     $(document).on("click",".board", function () {
         $('.container').hide();
-        var id = $('.board').attr('id');
-        // console.log(id);
+        var id = $(this).attr('id');
+        console.log(id);
 
 
     })
