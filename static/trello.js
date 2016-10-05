@@ -1,6 +1,6 @@
 function Board(title, id) {
     this.title = title;
-    this.id = id;
+    this.id = id.toString();
 }
 
 function generateUniqueId(){
@@ -18,8 +18,8 @@ function fillBoardDetails() {
 
 function Card(title, id, cardLocation) {
     this.title = title;
-    this.id = id;
-    this.cardLocation = cardLocation;
+    this.id = id.toString();
+    this.cardLocation = cardLocation.toString();
 }
 
 function generateUniqueCardId(){
@@ -56,21 +56,33 @@ function MyLocalStorage() {
     };
 
     this.getCardsForBoards = function(boardId){
-        boardId = boardId.toString();
-        console.log(boardId);
+
         var cardlist = localStorage.getItem('cards');
         if (cardlist) {
             cardlist = JSON.parse(cardlist);
-            return cardlist[boardId];
+            console.log(cardlist);
+            for (var key in cardlist){
+                if (boardId === key){
+                    // console.log("getcard: "+cardlist[key][0].id);
+                    return cardlist[key];
+                }
+            }
+            // return cardlist;
         }
     };
 
     this.saveCardsForBoards = function(boardId, card) {
         var cards = this.getCardsForBoards(boardId);
+        //todo: mindig csak rész lekérséek vannak nem az egész ezért mindig más lesz a localstorage kiegészítés + az egészet kell visszadni
         if (cards){
-            cards[card.cardLocation].push(card);
+            cards.push(card);
+            console.log("cards2:   " + cards[0].id+" "+cards[1].id);
         } else {
-            cards = [card.cardLocation.toString(), [card]];
+            //todo: itt van a hiba átnézni mikor mit ad vissza getcards adja vissza az egészet ha nincs találat
+            //todo: az id szerepel  másodlagos kulcs ként???
+            var cards = {};
+            cards[boardId] = [card];
+            console.log("cards:   " + cards[boardId][0].cardLocation);
         }
         localStorage.setItem('cards', JSON.stringify(cards));
         };
@@ -153,11 +165,13 @@ $(document).ready(function() {
 
 var card1 = new Card('egy', 1, 2);
 var card2 = new Card('ket', 2, 2);
-var card3 = new Card('ha', 3, 2);
+var card3 = new Card('ha', 3, 3);
 
 var localStore = new MyLocalStorage();
     console.log("fuck");
-localStore.saveCardsForBoards(2, card1);
-console.log(localStore.getCardsForBoards(2));
+localStore.saveCardsForBoards("2", card1);
+localStore.saveCardsForBoards("2", card2);
+// localStore.saveCardsForBoards("3", card3);
+console.log(localStore.getCardsForBoards("2"));
 });
 
