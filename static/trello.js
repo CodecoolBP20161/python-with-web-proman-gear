@@ -57,25 +57,40 @@ $(document).ready(function() {
     if (boards) {
         for (var i = 0; i < boards.length; i++) {
             $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board" id="' + boards[i].id + '">' + boards[i].title + '</button></div>')
-        }
-        ;
+        };
     }
+    $('.cards-container').hide();
     $('#save_board').click(function() {
-        var board = fillBoardDetails();
-        storage.saveBoard(board);
-        $('#myModal').modal('hide');
-        $(".form-control").val("");
-        $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
+        var value = $(".form-control").val();
+        if (value) {
+            var board = fillBoardDetails();
+            storage.saveBoard(board);
+            $('#myModal').modal('hide');
+            $(".form-control").val("");
+            $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
+        } else {
+           alert("fill title");
+        }
     });
     // $('.board').click(function() {
     //     $('.container').hide();
     // });
     $(document).on("click",".board", function () {
+       $('.add-card').hide();
         $('.container').hide();
+        $('.cards-container').show();
         var id = $(this).attr('id');
         console.log(id);
+    });
+    
+    $('.card-link').click(function() {
+         $('.card-link').hide();
+        $('.add-card').slideDown();
+    });
 
-
-    })
+    $('#cancel-card').click(function() {
+        $('.add-card').slideUp(1000);
+        $('.card-link').show(1000);
+    });
 
 });
