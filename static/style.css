@@ -1,0 +1,23 @@
+.btn-block{
+    border-radius: 15px;
+    margin-bottom: 10px;
+    height: 100px;
+    box-shadow: 10px 10px 5px #888888;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: gainsboro;
+
+}
+
+
+.modal-content{
+    background-color: lightgray;
+
+}
+
+.form-control{
+    background-color: whitesmoke;
+    margin-bottom: 1cm;
+}

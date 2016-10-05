@@ -2,10 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
-    <script src="/static/trello.js"></script>
+    <link rel="stylesheet" type="text/css" href=/static/style.css>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="static/trello.js"></script>
     <title>Proman</title>
 </head>
 <body>
-</body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="#">PROMAN</a>
+    </div>
+  </div>
+</nav>
+
+<!--todo: css margin-bottom-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3"> <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal">New Board</button></div>
+    </div>
+</div>
+<div class="container2">
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Board Title</h4>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="ENTER TITLE" maxlength="20">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <input type="button" class="btn btn-primary" id="save_board" value="Save">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div></body>
 </html>
