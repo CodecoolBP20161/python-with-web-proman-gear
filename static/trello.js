@@ -29,7 +29,7 @@ function generateUniqueCardId(){
     return highestCardId
 }
 
-function fillCardDetails() {
+function fillCardDetails(board) {
     var title = $('input').val();
     var id = generateUniqueCardId();
     var cardLocation = board.id;
@@ -55,24 +55,29 @@ function MyLocalStorage() {
 
     };
 
-    this.getCardsForBoards = function(){
+    this.getCardsForBoards = function(boardId){
+        boardId = boardId.toString();
+        console.log(boardId);
         var cardlist = localStorage.getItem('cards');
-        cardlist = JSON.parse(cardlist);
-        return cardlist;
+        if (cardlist) {
+            cardlist = JSON.parse(cardlist);
+            return cardlist[boardId];
+        }
     };
 
-    this.saveCardsForBoards = function(card) {
-        var cards = this.getCardsForBoards();
+    this.saveCardsForBoards = function(boardId, card) {
+        var cards = this.getCardsForBoards(boardId);
         if (cards){
-            cards.push(card);
+            cards[card.cardLocation].push(card);
         } else {
-            cards = [card];
+            cards = [card.cardLocation.toString(), [card]];
         }
         localStorage.setItem('cards', JSON.stringify(cards));
-
         };
 
 }
+
+
 
 function myStorage() {
 
@@ -146,5 +151,13 @@ $(document).ready(function() {
         $('.card-link').show(1000);
     });
 
+var card1 = new Card('egy', 1, 2);
+var card2 = new Card('ket', 2, 2);
+var card3 = new Card('ha', 3, 2);
+
+var localStore = new MyLocalStorage();
+    console.log("fuck");
+localStore.saveCardsForBoards(2, card1);
+console.log(localStore.getCardsForBoards(2));
 });
 
