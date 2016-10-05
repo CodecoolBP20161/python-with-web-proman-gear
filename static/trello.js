@@ -26,8 +26,13 @@ function myLocalStorage() {
 
     this.saveBoard = function(board) {
         var boards = this.getBoards();
-        boards.push(board);
+        if (boards){
+            boards.push(board);
+        } else {
+            boards = [board];
+        }
         localStorage.setItem('boards', JSON.stringify(boards));
+
     };
 }
 
@@ -49,14 +54,17 @@ function myStorage() {
 $(document).ready(function() {
     var storage = new myStorage();
     var boards = storage.getBoards();
-    for(var i=0;  i<boards.length; i++){
-        $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board">' + boards[i].title +'</button></div>')
-    };
+    if (boards) {
+        for (var i = 0; i < boards.length; i++) {
+            $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board" id="' + boards[i].id + '">' + boards[i].title + '</button></div>')
+        }
+        ;
+    }
     $('#save_board').click(function() {
         var board = fillBoardDetails();
         storage.saveBoard(board);
         $('#myModal').modal('hide');
-        $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board">' + board.title +'</button></div>')
+        $('.row').append('<div class="col-sm-3"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
     });
     $('.board').click(function() {
         $('.container').hide();
