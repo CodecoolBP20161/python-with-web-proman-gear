@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     var id = -1;
-    var storage = new myStorage();
+    var storage = new MyStorage();
     var boards = storage.getBoards();
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
@@ -52,16 +52,19 @@ $(document).ready(function() {
     // })
 
     $(document).on("click", ".close-btn",  function () {
-        id = $(this).attr('id');
-        storage.deleteBoard(id);
-        $('.board#'+id).parent().remove();
-        $('.close-btn#'+id).parent().remove();
+        $boardId = $(this).attr('id');
+        storage.deleteBoard($boardId);
+        $('.board#'+ $boardId).parent().remove();
+        $('.close-btn#'+ $boardId).parent().remove();
     })
+
     $(document).on("click", ".close-card",  function () {
-        id = $(this).attr('id');
-        // storage.deleteCard(id);
-        $('.list-group-item#'+id).remove();
-        $('.close-card#'+id).remove();
+        $cardId = $(this).attr('id');
+        $boardIdCard = $(this).attr('role');
+        // console.log($boardIdCard);
+        storage.deleteCard($boardIdCard, $cardId);
+        $('.list-group-item#'+ $cardId).remove();
+        $('.close-card#'+ $cardId).remove();
     })
 });
 

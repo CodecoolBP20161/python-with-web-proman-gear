@@ -67,13 +67,11 @@ function MyLocalStorage() {
 
         }
         localStorage.setItem('cards', JSON.stringify(cards));
-        };
+    };
 
     this.deleteBoard = function(boardId) {
-        // var board = this.getCardsForBoards(boardId);
         var boards = this.getBoards();
         var cards = this.getCards();
-        // console.log(cards);
         if (boards) {
             for (var i = 0; i < boards.length; i++) {
                 if (boards[i].id === boardId) {
@@ -83,23 +81,35 @@ function MyLocalStorage() {
             for (var key in cards) {
                 if (boardId === key){
                     delete cards[key];
+                }
             }
-        }
         localStorage.setItem('boards', JSON.stringify(boards));
         localStorage.setItem('cards', JSON.stringify(cards));
+        }
     };
-        
-    this.deleteCards = function(boardId, cardId) {
+
+    this.deleteCard = function(boardId, cardId) {
         var cards = this.getCards();
+        if (cards) {
+            for (var key in cards) {
+                for (var i=0; i < cards[key].length; i++) {
+                    console.log(boardId, cardId);
+                    if (boardId === key && cardId === cards[key][i].id) {
+                        cards[key].splice(i, 1);
+                    }
+                }
+            }
+        localStorage.setItem('cards', JSON.stringify(cards));
+        }
+    };
+}
 
-    }
-};
 
 
 
 
 
-function myStorage() {
+function MyStorage() {
 
     this.implementation = function () {
         return new MyLocalStorage();
@@ -130,7 +140,7 @@ function myStorage() {
     };
 
 
-};
+}
 
 var saveBoard = function(storage){
         var value = $(".form-control").val();
@@ -147,27 +157,27 @@ var saveBoard = function(storage){
 };
 
 var board = function (id, storage) {
-        $('.add-card').hide();
-        $('.container').hide();
-        $('.cards-container').show();
-        $('.list-group-item').remove();
-        var cardItems = storage.getCardsForBoards(id);
-        if (cardItems) {
-            for (var i = 0; i < cardItems.length; i++) {
-                createCard(cardItems[i].id, cardItems[i].title);
-            }
+    $('.add-card').hide();
+    $('.container').hide();
+    $('.cards-container').show();
+    $('.list-group-item').remove();
+    var cardItems = storage.getCardsForBoards(id);
+    if (cardItems) {
+        for (var i = 0; i < cardItems.length; i++) {
+            createCard(cardItems[i].id, cardItems[i].title, cardItems[i].cardLocation);
         }
-    };
+    }
+};
 
 var saveCard = function (id, storage) {
-        var value = $(".card-input").val();
-        if (value) {
-        var card = fillCardDetails(id);
-        storage.saveCardsForBoards(id, card);
-        createCard(card.id, value);
-        $(".card-input").val("");
-        } else {
-            alertMessage('Please fill card title!');
-        }
-        
-    };
+    var value = $(".card-input").val();
+    if (value) {
+    var card = fillCardDetails(id);
+    storage.saveCardsForBoards(id, card);
+    createCard(card.id, value);
+    $(".card-input").val("");
+    } else {
+        alertMessage('Please fill card title!');
+    }
+
+};

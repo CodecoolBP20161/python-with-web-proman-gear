@@ -16,7 +16,7 @@ var createBoard = function (id, title) {
             ' class="btn btn-primary btn-block board" id="' + id + '">' + title +'<button type="button" id="' + id + '"class="close close-btn" data-dismiss=btn-primary aria-hidden="true">&times;</button></button></div>')
     };
 
-var createCard = function (id, title) {
-        return $('.list-group').append('<li class="list-group-item" id="' + id + '">' + title + '<button type="button" id="' + id + '"class="close close-card" data-dismiss=list-group-item aria-hidden="true">&times;</button></li>'
+var createCard = function (id, title, location) {
+        return $('.list-group').append('<li class="list-group-item" id="' + id + '">' + title + '<button type="button" role="' + location + '" id="' + id + '"class="close close-card" data-dismiss=list-group-item aria-hidden="true">&times;</button></li>'
             );
     };
