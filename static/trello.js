@@ -5,7 +5,7 @@ $(document).ready(function() {
     var boards = storage.getBoards();
     if (boards) {
         for (var i = 0; i < boards.length; i++) {
-            $('.row').append('<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"><button type="button" class="btn btn-primary btn-block board" id="' + boards[i].id + '">' + boards[i].title + '</button></div>')
+            createBoard(boards[i].id, boards[i].title);
         };
     }
     $('.cards-container').hide();
@@ -16,13 +16,11 @@ $(document).ready(function() {
             storage.saveBoard(board);
             $('#myModal').modal('hide');
             $(".form-control").val("");
-            $('.row').append('<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
+            createBoard(board.id, board.title);
         } else {
             alertMessage('Please fill board title!');
         }
     });
-    
-    
 
     $(document).on("click",".board", function () {
         $('.add-card').hide();
@@ -33,7 +31,8 @@ $(document).ready(function() {
         var cardItems = storage.getCardsForBoards(id);
         if (cardItems) {
             for (var i = 0; i < cardItems.length; i++) {
-                $('.list-group').append('<li class="list-group-item">' + cardItems[0].title + '</li>');
+                createCard(cardItems[0].title);
+
             }
         }
     });
@@ -47,13 +46,12 @@ $(document).ready(function() {
         if (value) {
         var card = fillCardDetails(id);
         storage.saveCardsForBoards(id, card);
-        $('.list-group').append('<li class="list-group-item">'+value+'</li>');
+        createCard(value);
         $(".card-input").val("");
         } else {
             alertMessage('Please fill card title!');
         }
     });
-
 
     $('#cancel-card').click(function() {
         $('.add-card').slideUp(900);
