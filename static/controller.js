@@ -97,4 +97,43 @@ function myStorage() {
     };
 
 
-}
+};
+
+var saveBoard = function(storage){
+        var value = $(".form-control").val();
+        if (value) {
+            var board = fillBoardDetails();
+            storage.saveBoard(board);
+            $('#myModal').modal('hide');
+            $(".form-control").val("");
+            createBoard(board.id, board.title);
+        } else {
+            alertMessage('Please fill board title!');
+        }
+        
+};
+
+var board = function (id, storage) {
+        $('.add-card').hide();
+        $('.container').hide();
+        $('.cards-container').show();
+        var cardItems = storage.getCardsForBoards(id);
+        if (cardItems) {
+            for (var i = 0; i < cardItems.length; i++) {
+                createCard(cardItems[0].title);
+            }
+        }
+    };
+
+var saveCard = function (id, storage) {
+        var value = $(".card-input").val();
+        if (value) {
+        var card = fillCardDetails(id);
+        storage.saveCardsForBoards(id, card);
+        createCard(value);
+        $(".card-input").val("");
+        } else {
+            alertMessage('Please fill card title!');
+        }
+        
+    };
