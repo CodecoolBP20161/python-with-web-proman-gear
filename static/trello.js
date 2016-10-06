@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     var id = -1;
     var storage = new myStorage();

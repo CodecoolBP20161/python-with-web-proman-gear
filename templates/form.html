@@ -13,6 +13,7 @@
     <script type="text/javascript" src="static/models.js"></script>
     <script type="text/javascript" src="static/view.js"></script>
     <title>Proman</title>
+
 </head>
 
 <body>
@@ -20,17 +21,15 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">-->
-          <!--<span class="sr-only">Toggle navigation</span>-->
-        <!--</button>-->
         <a class="navbar-brand" href="#">PROMAN</a>
         <ul class="nav navbar-nav">
           <li><a class="navbar-back-boards" href="#">BOARDS</a></li>
+            </ul>
       </div>
     </div>
   </nav>
 
-<!--todo: css margin-bottom-->
+
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"> <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal">New Board</button></div>
@@ -53,7 +52,7 @@
 
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control board-title" id="title" required placeholder=" ENTER TITLE" maxlength="60">
+            <input type="text"  autofocus class="form-control board-title" id="title" required placeholder="  ENTER TITLE" maxlength="60">
           </div>
         </div>
 
@@ -83,7 +82,7 @@
       </div>
 
       <div class="card-block add-card">
-        <textarea class="form-control card-input" placeholder="CARD TITLE" maxlength="200"></textarea>
+        <textarea class="form-control card-input" autofocus placeholder="  CARD TITLE" maxlength="200"></textarea>
         <input type="button" class="btn btn-primary btn-card" id="save-card" value="Save">
         <input type="button" class="btn btn-default btn-card" id="cancel-card" value="Cancel">
       </div>

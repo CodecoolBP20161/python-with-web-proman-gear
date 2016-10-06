@@ -58,3 +58,16 @@
     opacity: .6;
     border-radius: 15px;
 }
+.close-btn{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    color: whitesmoke;
+}
+/*.close-card{*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 20px;*/
+    /*color: blue;*/
+
+/*}*/
