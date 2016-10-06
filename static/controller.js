@@ -25,7 +25,6 @@ function MyLocalStorage() {
         var cardlist = localStorage.getItem('cards');
         if (cardlist) {
             cardlist = JSON.parse(cardlist);
-            console.log(cardlist);
             for (var key in cardlist){
                 if (boardId === key){
                     // console.log("getcard: "+cardlist[key][0].id);
@@ -117,10 +116,11 @@ var board = function (id, storage) {
         $('.add-card').hide();
         $('.container').hide();
         $('.cards-container').show();
+        $('.list-group-item').remove();
         var cardItems = storage.getCardsForBoards(id);
         if (cardItems) {
             for (var i = 0; i < cardItems.length; i++) {
-                createCard(cardItems[0].title);
+                createCard(cardItems[i].title);
             }
         }
     };
