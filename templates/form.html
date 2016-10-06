@@ -16,13 +16,16 @@
 </head>
 
 <body>
+
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-          <span class="sr-only">Toggle navigation</span>
-        </button>
+        <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">-->
+          <!--<span class="sr-only">Toggle navigation</span>-->
+        <!--</button>-->
         <a class="navbar-brand" href="#">PROMAN</a>
+        <ul class="nav navbar-nav">
+          <li><a class="navbar-back-boards" href="#">BOARDS</a></li>
       </div>
     </div>
   </nav>
@@ -65,25 +68,29 @@
   </div>
 
   <div class="cards-container">
-      <div class="card col-sm-4">
+    <div class="card col-sm-4">
 
-  <div class="card-block">
-    <h4 class="card-title">Card Items</h4>
+      <div class="card-block">
+        <h4 class="card-title">Card Items</h4>
+      </div>
+
+      <ul class="list-group list-group-flush">
+      <!--append part from js for cards-->
+      </ul>
+
+      <div class="card-block">
+        <a href="#" class="card-link">Create new card</a>
+      </div>
+
+      <div class="card-block add-card">
+        <textarea class="form-control card-input" placeholder="CARD TITLE" maxlength="200"></textarea>
+        <input type="button" class="btn btn-primary btn-card" id="save-card" value="Save">
+        <input type="button" class="btn btn-default btn-card" id="cancel-card" value="Cancel">
+      </div>
+
+    </div>
   </div>
-  <ul class="list-group list-group-flush">
-<!--append part from js for cards-->
-  </ul>
-  <div class="card-block">
-    <a href="#" class="card-link">Create new card</a>
-  </div>
-  <div class="card-block add-card">
-    <textarea type="text" class="form-control card-input" placeholder="CARD TITLE" maxlength="200"></textarea>
-      <input type="button" class="btn btn-primary btn-card" id="save-card" value="Save">
-      <input type="button" class="btn btn-default btn-card" id="cancel-card" value="Cancel">
-  </div>
+
 </div>
-
-  </div>
-
-</div></body>
+</body>
 </html>

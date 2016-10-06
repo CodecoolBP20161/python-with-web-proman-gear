@@ -8,9 +8,7 @@ var alertMessage = function (label) {
             $(alert).insertAfter(".form-control");
             setTimeout(function() {
                 $(".alert-warning").remove();
-                }, 2000);
-            setTimeout();
-        
+                }, 2000);     
     };
 
 var createBoard = function (id, title) {

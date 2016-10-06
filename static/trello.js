@@ -15,6 +15,10 @@ $(document).ready(function() {
     });
 
     $(document).on("click",".board", function () {
+        $('.add-card').hide();
+        $('.container').hide();
+        $('.cards-container').show();
+        $('.navbar-nav').append('<li class="active"><a class="navbar-back-boards" href="#">BOARDS</a></li>')
         id = $(this).attr('id');
         board(id, storage);
     });
@@ -32,5 +36,12 @@ $(document).ready(function() {
         $('.add-card').slideUp(900);
         $('.card-link').show(1000);
     });
+
+    $(document).on("click", ".navbar-back-boards", function () {
+        $('.cards-container').hide();
+        $('.container').show();
+    });
+
+
 });
 
