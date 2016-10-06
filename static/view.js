@@ -13,10 +13,10 @@ var alertMessage = function (label) {
 
 var createBoard = function (id, title) {
         return $('.row').append('<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"><button type="button"' +
-            ' class="btn btn-primary btn-block board" id="' + id + '">' + title +'<button type="button" class="close close-btn" data-dismiss=btn-primary aria-hidden="true">&times;</button></button></div>')
+            ' class="btn btn-primary btn-block board" id="' + id + '">' + title +'<button type="button" id="' + id + '"class="close close-btn" data-dismiss=btn-primary aria-hidden="true">&times;</button></button></div>')
     };
 
-var createCard = function (title) {
-        return $('.list-group').append('<li class="list-group-item">' + title + '<button type="button" class="close close-card" data-dismiss=list-group-item aria-hidden="true">&times;</button></li>'
+var createCard = function (id, title) {
+        return $('.list-group').append('<li class="list-group-item" id="' + id + '">' + title + '<button type="button" id="' + id + '"class="close close-card" data-dismiss=list-group-item aria-hidden="true">&times;</button></li>'
             );
     };

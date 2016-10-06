@@ -81,7 +81,7 @@ function MyLocalStorage() {
         }
         localStorage.setItem('boards', JSON.stringify(boards));
     };
-    this.deleteCards = function(boardId) {
+    this.deleteCards = function(boardId, cardId) {
         var cards = this.getCards();
 
     }
@@ -115,6 +115,14 @@ function myStorage() {
         return this.implementation().getCardsForBoards(boardId);
     };
 
+    this.deleteBoard = function (boardId) {
+        return this.implementation().deleteBoard(boardId);
+    };
+
+    this.deleteCard = function (boardId, cardId) {
+        return this.implementation().deleteCard(boardId, cardId);
+    };
+
 
 };
 
@@ -140,7 +148,7 @@ var board = function (id, storage) {
         var cardItems = storage.getCardsForBoards(id);
         if (cardItems) {
             for (var i = 0; i < cardItems.length; i++) {
-                createCard(cardItems[i].title);
+                createCard(cardItems[i].id, cardItems[i].title);
             }
         }
     };
@@ -150,7 +158,7 @@ var saveCard = function (id, storage) {
         if (value) {
         var card = fillCardDetails(id);
         storage.saveCardsForBoards(id, card);
-        createCard(value);
+        createCard(card.id, value);
         $(".card-input").val("");
         } else {
             alertMessage('Please fill card title!');

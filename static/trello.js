@@ -43,6 +43,20 @@ $(document).ready(function() {
         $('.cards-container').hide();
         $('.container').show();
         $('.navbar-back-boards').hide();
-    });
+    })
+
+    $(document).on("click", ".close-btn",  function () {
+        id = $(this).attr('id');
+        storage.deleteBoard(id);
+        $('.board#'+id).parent().remove();
+        $('.close-btn#'+id).parent().remove();
+    })
+    $(document).on("click", ".close-card",  function () {
+        id = $(this).attr('id');
+        // storage.deleteCard(id);
+        $('.list-group-item#'+id).remove();
+        $('.close-card#'+id).remove();
+    })
+    
 });
 
