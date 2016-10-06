@@ -11,7 +11,7 @@ $(document).ready(function() {
         }
     }
 
-    $('#save_board').click(function() {
+    $(document).on('click', '#save_board', function() {
         saveBoard(storage);
     });
 
@@ -25,17 +25,17 @@ $(document).ready(function() {
         board(id, storage);
     });
 
-    $('.card-link').click(function() {
+    $(document).on('click', '.card-link', function() {
         $('.card-link').hide();
         $('.add-card').slideDown(1000);
         
     });
 
-    $('#save-card').click(function() {
+    $(document).on('click', '#save-card', function() {
         saveCard(id, storage);
     });
 
-    $('#cancel-card').click(function() {
+    $(document).on('click', '#cancel-card', function() {
         $('.add-card').slideUp(900);
         $('.card-link').show(1000);
     });
