@@ -30,7 +30,8 @@ $(document).ready(function() {
         var cardItems = storage.getCardsForBoards(id);
         if (cardItems) {
             for (var i = 0; i < cardItems.length; i++) {
-                $('.list-group').append('<li class="list-group-item">' + cardItems[0].title + '</li>');
+                createCard(cardItems[0].title);
+
             }
         }
     });
@@ -39,24 +40,22 @@ $(document).ready(function() {
         $('.card-link').hide();
         $('.add-card').slideDown(1000);
     });
+
     $('#save-card').click(function() {
         var value = $(".card-input").val();
         if (value) {
         var card = fillCardDetails(id);
         storage.saveCardsForBoards(id, card);
-        $('.list-group').append('<li class="list-group-item">'+value+'</li>');
+        createCard(value);
         $(".card-input").val("");
         } else {
             alertMessage('Please fill card title!');
         }
     });
 
-
     $('#cancel-card').click(function() {
         $('.add-card').slideUp(900);
         $('.card-link').show(1000);
     });
-
-
 });
 
