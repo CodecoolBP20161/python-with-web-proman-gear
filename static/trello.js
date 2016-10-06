@@ -12,6 +12,10 @@ $(document).ready(function() {
         }
     }
 
+    $('.modal').on('shown.bs.modal', function() {
+        $(this).find('[autofocus]').focus();
+    });
+
     $(document).on('click', '#save_board', function() {
         saveBoard(storage);
     });
