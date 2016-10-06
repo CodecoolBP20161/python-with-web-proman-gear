@@ -1,3 +1,8 @@
+body {
+    background-color: lightgray;
+
+}
+
 .btn{
     white-space:normal !important;
     word-wrap:break-word;
@@ -25,7 +30,8 @@
     margin-bottom: 1cm;
 }
 .cards-container{
-    background-color: lightblue;
+    background-color: #90c2e6;
+    padding-left: 40px;
 }
 .card{
     background-color: lightblue;
@@ -42,6 +48,7 @@
     margin-bottom: 10px;
     white-space:normal !important;
     word-wrap:break-word;
+
 }
 .card-link{
     font-size: 20px;
