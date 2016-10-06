@@ -158,9 +158,10 @@ $(document).ready(function() {
     });
 
     $(document).on("click",".board", function () {
-       $('.add-card').hide();
+        $('.add-card').hide();
         $('.container').hide();
         $('.cards-container').show();
+        // $('.navbar-brand').replaceWith('<a class="navbar-brand" href="#">BOARDS</a>')
         id = $(this).attr('id');
         var cardItems = storage.getCardsForBoards(id);
         if (cardItems) {
@@ -192,6 +193,12 @@ $(document).ready(function() {
         $('.add-card').slideUp(900);
         $('.card-link').show(1000);
     });
+
+    // $(document).on("click", ".navbar-brand", function () {
+    //     $('.cards-container').hide();
+    //     $('.navbar-brand').replaceWith('<a class="navbar-brand" href="#">PROMAN</a>')
+    //     $('.container').show();
+    // });
 
 
 });
