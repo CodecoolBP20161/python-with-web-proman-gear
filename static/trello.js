@@ -30,9 +30,9 @@ function generateUniqueCardId(){
 }
 
 function fillCardDetails(board) {
-    var title = $('input').val();
+    var title = $('.card-input').val();
     var id = generateUniqueCardId();
-    var cardLocation = board.id;
+    var cardLocation = board;
     return new Card(title, id, cardLocation);
 }
 
@@ -71,18 +71,37 @@ function MyLocalStorage() {
         }
     };
 
+    this.getCards = function () {
+        var cardlist = localStorage.getItem('cards');
+        if (cardlist) {
+            cardlist = JSON.parse(cardlist);
+            return cardlist;
+        }
+
+    };
+
     this.saveCardsForBoards = function(boardId, card) {
-        var cards = this.getCardsForBoards(boardId);
-        //todo: mindig csak rész lekérséek vannak nem az egész ezért mindig más lesz a localstorage kiegészítés + az egészet kell visszadni
+        var cards = this.getCards();
+        var cardKeys = [];
+        //todo: még mindig nincs id al kulcs ként, átnézni hol a hiba
         if (cards){
-            cards.push(card);
-            console.log("cards2:   " + cards[0].id+" "+cards[1].id);
+            for (var key in cards){
+                cardKeys.push(key);
+                if (boardId === key){
+                    cards[key].push(card);
+                }
+                 console.log("append:" + cards);
+            }
+            var contains = $.inArray(boardId, cardKeys);
+            if (contains === -1){
+                cards[boardId] = [card];
+                 console.log("new:" + cards);
+            }
         } else {
-            //todo: itt van a hiba átnézni mikor mit ad vissza getcards adja vissza az egészet ha nincs találat
-            //todo: az id szerepel  másodlagos kulcs ként???
             var cards = {};
             cards[boardId] = [card];
-            console.log("cards:   " + cards[boardId][0].cardLocation);
+            console.log("first:" + cards);
+
         }
         localStorage.setItem('cards', JSON.stringify(cards));
         };
@@ -105,18 +124,19 @@ function myStorage() {
         return this.implementation().getBoards();
     };
 
-    this.saveCardsForBoards = function (board) {
-        return this.implementation().saveCardsForBoards(board);
+    this.saveCardsForBoards = function (boardId, card) {
+        return this.implementation().saveCardsForBoards(boardId, card);
     };
 
-    this.getCardsForBoards = function () {
-        return this.implementation().getCardsForBoards();
+    this.getCardsForBoards = function (boardId) {
+        return this.implementation().getCardsForBoards(boardId);
     };
 
 
 }
 
 $(document).ready(function() {
+    var id = -1;
     var storage = new myStorage();
     var boards = storage.getBoards();
     if (boards) {
@@ -137,41 +157,52 @@ $(document).ready(function() {
            alert("fill title");
         }
     });
-    // $('.board').click(function() {
-    //     $('.container').hide();
-    // });
+    
     $(document).on("click",".board", function () {
        $('.add-card').hide();
         $('.container').hide();
         $('.cards-container').show();
-        var id = $(this).attr('id');
-        // var title = $('input').val();
-        // var title = prompt("Add title here");
-        // var id = generateUniqueCardId();
-        // var cardLocation = $(this).attr('id');
-        // var newCard = new Card(title, id, cardLocation)
-        // console.log(newCard.title + newCard.id + newCard.cardLocation);
+        id = $(this).attr('id');
+        var cardItems = storage.getCardsForBoards(id);
+        if (cardItems) {
+            for (var i = 0; i < cardItems.length; i++) {
+
+                $('.list-group').append('<li class="list-group-item">' + cardItems[0].title + '</li>');
+            }
+        }
     });
 
     $('.card-link').click(function() {
         $('.card-link').hide();
-        $('.add-card').slideDown();
+        $('.add-card').slideDown(1000);
+    });
+    $('#save-card').click(function() {
+        var value = $(".card-input").val();
+        if (value) {
+        var card = fillCardDetails(id);
+        storage.saveCardsForBoards(id);
+        $('.list-group').append('<li class="list-group-item">'+value+'</li>');
+        $(".card-input").val("");
+        } else {
+           alert("fill card title");
+        }
     });
 
+
     $('#cancel-card').click(function() {
-        $('.add-card').slideUp(1000);
+        $('.add-card').slideUp(900);
         $('.card-link').show(1000);
     });
 
-var card1 = new Card('egy', 1, 2);
-var card2 = new Card('ket', 2, 2);
-var card3 = new Card('ha', 3, 3);
-
-var localStore = new MyLocalStorage();
-    console.log("fuck");
-localStore.saveCardsForBoards("2", card1);
-localStore.saveCardsForBoards("2", card2);
+// var card1 = new Card('egy', 1, 2);
+// var card2 = new Card('ket', 2, 2);
+// var card3 = new Card('ha', 3, 3);
+//
+// var localStore = new MyLocalStorage();
+//     console.log("fuck");
+// localStore.saveCardsForBoards("2", card1);
+// localStore.saveCardsForBoards("2", card2);
 // localStore.saveCardsForBoards("3", card3);
-console.log(localStore.getCardsForBoards("2"));
+// console.log(localStore.getCardsForBoards("2"));
 });
 

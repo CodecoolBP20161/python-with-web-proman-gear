@@ -2,7 +2,6 @@
     white-space:normal !important;
     word-wrap:break-word;
 }
-
 .btn-block{
     border-radius: 15px;
     margin-bottom: 10px;
@@ -13,46 +12,41 @@
     font-size: 15px;
     font-weight: bold;
     color: gainsboro;
-
 }
-
 .btn{
    white-space:normal !important;
    word-wrap:break-word;
 }
-
-
 .modal-content{
     background-color: lightgray;
-
 }
-
 .form-control{
     background-color: whitesmoke;
     margin-bottom: 1cm;
 }
-
 .cards-container{
     background-color: lightblue;
 }
-
 .card{
     background-color: lightblue;
     border-radius: 15px;
     margin-bottom: 30px;
     box-shadow: 10px 10px 5px #888888;
 }
-
+.card-title{
+     color: gray;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
 .list-group-item{
     margin-bottom: 10px;
-
+    white-space:normal !important;
+    word-wrap:break-word;
 }
-
 .card-link{
     font-size: 20px;
     font-weight: bold;
 }
-
 .form-control.card-input{
     margin-top: 30px;
     height: 100px;
