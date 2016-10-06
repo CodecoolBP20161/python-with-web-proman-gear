@@ -5,7 +5,7 @@ $(document).ready(function() {
     var boards = storage.getBoards();
     if (boards) {
         for (var i = 0; i < boards.length; i++) {
-            $('.row').append('<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"><button type="button" class="btn btn-primary btn-block board" id="' + boards[i].id + '">' + boards[i].title + '</button></div>')
+            createBoard(boards[i].id, boards[i].title);
         };
     }
     $('.cards-container').hide();
@@ -16,13 +16,11 @@ $(document).ready(function() {
             storage.saveBoard(board);
             $('#myModal').modal('hide');
             $(".form-control").val("");
-            $('.row').append('<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
+            createBoard(board.id, board.title);
         } else {
             alertMessage('Please fill board title!');
         }
     });
-    
-    
 
     $(document).on("click",".board", function () {
        $('.add-card').hide();
