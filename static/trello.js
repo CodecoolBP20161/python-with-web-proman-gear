@@ -5,6 +5,7 @@ $(document).ready(function() {
     var boards = storage.getBoards();
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
+    $('.board-display').hide();
     if (boards) {
         for (var i = 0; i < boards.length; i++) {
             createBoard(boards[i].id, boards[i].title);
@@ -16,8 +17,12 @@ $(document).ready(function() {
     });
 
     $(document).on("click",".board", function () {
+        $title = $(this).attr('role');
+        console.log($title);
+        displayBoardTitle($title);
         $('.add-card').hide();
         $('.container').hide();
+        $('.board-display').show();
         $('.cards-container').show();
         $('.card-link').show();
         $('#navbar-back-board').show();
@@ -42,6 +47,7 @@ $(document).ready(function() {
 
     $(document).on("click", "#navbar-back-board",  function () {
         $('.cards-container').hide();
+        $('.board-display').hide();
         $('.container').show();
         $('#navbar-back-board').hide();
     });
