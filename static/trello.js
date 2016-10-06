@@ -1,9 +1,10 @@
+
 $(document).ready(function() {
     var id = -1;
     var storage = new myStorage();
     var boards = storage.getBoards();
     $('.cards-container').hide();
-    $('.navbar-back-boards').hide();
+    $('#navbar-back-board').hide();
     if (boards) {
         for (var i = 0; i < boards.length; i++) {
             createBoard(boards[i].id, boards[i].title);
@@ -19,7 +20,7 @@ $(document).ready(function() {
         $('.container').hide();
         $('.cards-container').show();
         $('.card-link').show();
-        $('.navbar-back-boards').show();
+        $('#navbar-back-board').show();
         id = $(this).attr('id');
         board(id, storage);
     });
@@ -39,11 +40,16 @@ $(document).ready(function() {
         $('.card-link').show(1000);
     });
 
-    $(document).on("click", ".navbar-header",  function () {
+    $(document).on("click", "#navbar-back-board",  function () {
         $('.cards-container').hide();
         $('.container').show();
-        $('.navbar-back-boards').hide();
-    })
+        $('#navbar-back-board').hide();
+    });
+    
+    // $(".navbar-proman").click( function() {
+    //     console.log("fuck");
+    //     $('#proman').popover('toggle', placement="bottom");
+    // })
 
     $(document).on("click", ".close-btn",  function () {
         id = $(this).attr('id');
@@ -57,6 +63,6 @@ $(document).ready(function() {
         $('.list-group-item#'+id).remove();
         $('.close-card#'+id).remove();
     })
-    
 });
 
+    

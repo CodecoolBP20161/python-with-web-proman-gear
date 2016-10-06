@@ -72,21 +72,27 @@ function MyLocalStorage() {
     this.deleteBoard = function(boardId) {
         // var board = this.getCardsForBoards(boardId);
         var boards = this.getBoards();
+        var cards = this.getCards();
+        // console.log(cards);
         if (boards) {
             for (var i = 0; i < boards.length; i++) {
                 if (boards[i].id === boardId) {
                     boards.splice(i, 1);
                 }
             }
+            for (var key in cards) {
+                if (boardId === key){
+                    delete cards[key];
+            }
         }
         localStorage.setItem('boards', JSON.stringify(boards));
+        localStorage.setItem('cards', JSON.stringify(cards));
     };
+        
     this.deleteCards = function(boardId, cardId) {
         var cards = this.getCards();
 
     }
-
-
 };
 
 
