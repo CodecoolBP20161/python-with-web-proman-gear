@@ -153,7 +153,14 @@ $(document).ready(function() {
             $(".form-control").val("");
             $('.row').append('<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2"><button type="button" class="btn btn-primary btn-block board" id="' + board.id + '">' + board.title +'</button></div>')
         } else {
-           alert("fill title");
+           var alert = '<div class="alert alert-dismissible alert-warning"> ' +
+                '<button type="button" class="close" data-dismiss="alert">&times;</button> ' +
+                '<strong>Please fill board title!</strong></div>';
+            $(alert).insertAfter(".form-control");
+            setTimeout(function() {
+                $(".alert-warning").remove();
+                }, 2000);
+            setTimeout();
         }
     });
 
@@ -183,7 +190,15 @@ $(document).ready(function() {
         $('.list-group').append('<li class="list-group-item">'+value+'</li>');
         $(".card-input").val("");
         } else {
-           alert("fill card title");
+            var alert = '<div class="alert alert-dismissible alert-warning"> ' +
+                '<button type="button" class="close" data-dismiss="alert">&times;</button> ' +
+                '<strong>Please fill card title!</strong></div>';
+            $(alert).insertAfter(".card-input");
+            setTimeout(function() {
+                $(".alert-warning").remove();
+                }, 2000);
+            setTimeout();
+
         }
     });
 
