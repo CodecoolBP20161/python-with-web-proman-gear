@@ -163,29 +163,11 @@ $(document).ready(function() {
         $('.container').hide();
         $('.cards-container').show();
         id = $(this).attr('id');
-        var cardItems = storage.getCardsForBoards(id);
-        if (cardItems) {
-            for (var i = 0; i < cardItems.length; i++) {
-
-                $('.list-group').append('<li class="list-group-item">' + cardItems[0].title + '</li>');
-            }
-        }
     });
 
     $('.card-link').click(function() {
         $('.card-link').hide();
         $('.add-card').slideDown(1000);
-    });
-    $('#save-card').click(function() {
-        var value = $(".card-input").val();
-        if (value) {
-        var card = fillCardDetails(id);
-        storage.saveCardsForBoards(id);
-        $('.list-group').append('<li class="list-group-item">'+value+'</li>');
-        $(".card-input").val("");
-        } else {
-           alert("fill card title");
-        }
     });
 
 
@@ -206,3 +188,21 @@ $(document).ready(function() {
 // console.log(localStore.getCardsForBoards("2"));
 });
 
+    // $('#save-card').click(function() {
+    //     var value = $(".card-input").val();
+    //     if (value) {
+    //     var card = fillCardDetails(id);
+    //     storage.saveCardsForBoards(id);
+    //     $('.list-group').append('<li class="list-group-item">'+value+'</li>');
+    //     $(".card-input").val("");
+    //     } else {
+    //        alert("fill card title");
+    //     }
+    // });
+        // var cardItems = storage.getCardsForBoards(id);
+        // if (cardItems) {
+        //     for (var i = 0; i < cardItems.length; i++) {
+        //
+        //         $('.list-group').append('<li class="list-group-item">' + cardItems[0].title + '</li>');
+        //     }
+        // }
