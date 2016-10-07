@@ -66,19 +66,14 @@ $(document).ready(function() {
 
     $(document).on("click", ".close-btn",  function () {
         $boardId = $(this).attr('id');
-        storage.deleteBoard($boardId);
-        $('.board#'+ $boardId).parent().remove();
-        $('.close-btn#'+ $boardId).parent().remove();
-    })
+        boardDeleteConfirm(storage);
+    });
 
     $(document).on("click", ".close-card",  function () {
         $cardId = $(this).attr('id');
         $boardIdCard = $(this).attr('role');
-        // console.log($boardIdCard);
-        storage.deleteCard($boardIdCard, $cardId);
-        $('.list-group-item#'+ $cardId).remove();
-        $('.close-card#'+ $cardId).remove();
-    })
+        cardDeleteConfirm(storage);
+    });
 });
 
     
