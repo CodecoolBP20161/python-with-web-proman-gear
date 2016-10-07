@@ -188,7 +188,6 @@ var boardDeleteConfirm = function (storage) {
               size: "small",
               message: "Are you sure?",
               callback: function(result){
-                  return result;
                   if (result){
                    storage.deleteBoard($boardId);
                     $('.board#'+ $boardId).parent().remove();
