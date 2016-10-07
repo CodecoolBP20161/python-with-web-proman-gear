@@ -37,7 +37,9 @@ $(document).ready(function() {
     $(document).on('click', '.card-link', function() {
         $('.card-link').hide();
         $('.add-card').slideDown(1000);
-        
+        // $(this).find('[autofocus]').focus();
+        // $('#title').focus();
+
     });
 
     $(document).on('click', '#save-card', function() {
@@ -47,6 +49,7 @@ $(document).ready(function() {
     $(document).on('click', '#cancel-card', function() {
         $('.add-card').slideUp(900);
         $('.card-link').show(1000);
+        $(".card-input").val("");
     });
 
     $(document).on("click", "#navbar-back-board",  function () {

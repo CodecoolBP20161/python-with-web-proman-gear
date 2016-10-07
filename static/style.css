@@ -1,10 +1,6 @@
 body {
-    /*background-color: #d3cc8d;*/
-    background-image: url("/static/creative_color_pencil_03_hd_picture_170926.jpg");
     background-size: auto;
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-attachment: fixed;
+    background: url("/static/creative_color_pencil_03_hd_picture_170926.jpg") no-repeat fixed bottom right;
 }
 
 .transparent-background {
@@ -53,20 +49,17 @@ body {
 }
 
 #board-title{
-    background-color: lightblue;
-    text-align: center;
+    text-align:center;
     vertical-align: middle;
-    color: gray;
+    color: lightslategrey;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    border-radius: 15px;
-    margin-bottom: 30px;
-    box-shadow: 10px 10px 5px #888888;
-    height: 80px;
+    padding-bottom: 20px;
+    text-shadow: 2px 2px #000000;
 }
 
 .card-title{
-    color: gray;
+    color: lightslategrey;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -97,10 +90,5 @@ body {
     right: 20px;
     color: whitesmoke;
 }
-/*.close-card{*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*right: 20px;*/
-    /*color: blue;*/
 
-/*}*/
+
