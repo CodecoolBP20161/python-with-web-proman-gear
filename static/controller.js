@@ -181,3 +181,37 @@ var saveCard = function (id, storage) {
     }
 
 };
+
+var boardDeleteConfirm = function (storage) {
+    $(function() {
+            bootbox.confirm({
+              size: "small",
+              message: "Are you sure?",
+              callback: function(result){
+                  return result;
+                  if (result){
+                   storage.deleteBoard($boardId);
+                    $('.board#'+ $boardId).parent().remove();
+                    $('.close-btn#'+ $boardId).parent().remove();
+                  }
+              }
+            });
+        });
+    
+};
+
+var cardDeleteConfirm = function (storage) {
+    $(function() {
+            bootbox.confirm({
+              size: "small",
+              message: "Are you sure?",
+              callback: function(result){
+                  if (result){
+                    storage.deleteCard($boardIdCard, $cardId);
+                    $('.list-group-item#'+ $cardId).remove();
+                    $('.close-card#'+ $cardId).remove();
+                      }
+              }
+            });
+    });  
+};
