@@ -1,4 +1,4 @@
-from read_from_text import UserDataJson
+from read_from_txt import UserDataJson
 
 class DatabaseInfo:
     db_info = UserDataJson.create_file()
