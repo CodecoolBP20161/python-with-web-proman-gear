@@ -11,7 +11,7 @@ $(document).ready(function() {
             createBoard(boards[i].id, boards[i].title);
         }
     }
-
+    //need more comments
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
     });
