@@ -14,11 +14,15 @@ class UserDataJson:
             db_name = input("Please enter your database name:")
             db_pwd = getpass.getpass(prompt="Enter your password:")
 
+
             my_dict = {
+                'database': {
                     'user': db_user,
                     'db_name': db_name,
                     'pwd': db_pwd
-                     }
+                }
+            }
+
 
 
             with open('db_user.json', 'w') as outfile:
