@@ -2,16 +2,17 @@
 $(document).ready(function() {
     var id = -1;
     var storage = new MyStorage();
-    var boards = storage.getBoards();
+    storage.getBoards(function(boards){
+        if (boards) {
+            for (var i = 0; i < boards.length; i++) {
+                createBoard(boards[i].id, boards[i].title);
+            }
+        }
+    });
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
     $('.board-display').hide();
-    if (boards) {
-        for (var i = 0; i < boards.length; i++) {
-            createBoard(boards[i].id, boards[i].title);
-        }
-    }
-    //need more comments
+
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
     });
@@ -58,7 +59,7 @@ $(document).ready(function() {
         $('.container').show();
         $('#navbar-back-board').hide();
     });
-    
+
     // $(".navbar-proman").click( function() {
     //     console.log("fuck");
     //     $('#proman').popover('toggle', placement="bottom");
@@ -75,5 +76,3 @@ $(document).ready(function() {
         cardDeleteConfirm(storage);
     });
 });
-
-    
