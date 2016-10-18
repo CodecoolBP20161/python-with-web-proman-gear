@@ -74,6 +74,23 @@ $(document).ready(function() {
         $boardIdCard = $(this).attr('role');
         cardDeleteConfirm(storage);
     });
+
+    $(document).on("click", ".board-pencil", function(){
+        var boardName = $(this).attr('id');
+        $('.board-title').val(boardName);
+        $('#myModal').modal("show");
+
+
+    });
+
+    $(document).on("click", ".card-pencil", function(){
+        var cardName = $(this).attr('id');
+        $('.card-input').val(cardName);
+        $('.add-card').slideDown(1000);
+        $('.add-card').find('[autofocus]').focus();
+        console.log(cardName);
+    });
+
 });
 
     

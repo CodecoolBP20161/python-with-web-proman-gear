@@ -93,7 +93,7 @@ body {
 
 .board-pencil{
     position: absolute;
-    top: 8px;
+    top: 5px;
     right: 50px;
     color: whitesmoke;
 }
@@ -101,7 +101,7 @@ body {
 .card-pencil{
     position: absolute;
     right: 40px;
-    top: 22px;
+    top: 20px;
 }
 
 
