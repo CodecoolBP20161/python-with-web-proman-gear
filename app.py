@@ -37,15 +37,15 @@ def get_cards(board_id):
 
 
 @app.route('/api/board/<int:board_id>/cards', methods=['POST'])
-def get_cards(board_id):
+def post_cards(board_id):
     pass
 
 
 @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['PUT'])
-def get_cards(board_id, card_id):
+def update_cards(board_id, card_id):
     pass
 
 
 @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['DELETE'])
-def get_cards(board_id, card_id):
+def delete_cards(board_id, card_id):
     pass
