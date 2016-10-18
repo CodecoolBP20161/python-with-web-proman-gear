@@ -91,4 +91,17 @@ body {
     color: whitesmoke;
 }
 
+.board-pencil{
+    position: absolute;
+    top: 8px;
+    right: 50px;
+    color: whitesmoke;
+}
+
+.card-pencil{
+    position: absolute;
+    right: 40px;
+    top: 22px;
+}
+
 
