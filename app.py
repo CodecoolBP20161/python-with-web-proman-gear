@@ -22,7 +22,10 @@ def get_boards():
 
 @app.route('/api/boards', methods=['POST'])
 def post_board():
-    pass
+    if request.method == "POST":
+        new_board = request.get_json(silent=True)
+        print(new_board)
+    return json.dumps(new_board)
 
 
 @app.route('/api/boards/<int:board_id>', methods=['PUT'])
@@ -35,26 +38,24 @@ def delete_board(board_id):
     pass
 
 
-@app.route('/api/board/<int:board_id>/cards', methods=['GET'])
-def get_cards(board_id):
-    pass
-
-# /!\ THE FOLLOWING APP.ROUTES ARE COMMENTED OUT BECAUSE THEY CRASH THE SERVER /!\
-
-
-# @app.route('/api/board/<int:board_id>/cards', methods=['POST'])
+# @app.route('/api/board/<int:board_id>/cards', methods=['GET'])
 # def get_cards(board_id):
+#     pass
+#
+#
+# @app.route('/api/board/<int:board_id>/cards', methods=['POST'])
+# def post_cards(board_id):
 #     pass
 
 
 # @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['PUT'])
-# def get_cards(board_id, card_id):
+# def update_cards(board_id, card_id):
 #     pass
-
-
+#
+#
 # @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['DELETE'])
-# def get_cards(board_id, card_id):
+# def delete_cards(board_id, card_id):
 #     pass
 
-
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
