@@ -20,6 +20,3 @@ class Card(BaseModel):
     title = CharField()
     cardLocation = ForeignKeyField(Board, related_name='cards')
 
-# boards = Board.select().dicts()
-# for board in boards:
-#     print(board)

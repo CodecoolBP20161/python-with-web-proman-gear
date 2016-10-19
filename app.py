@@ -24,38 +24,45 @@ def get_boards():
 def post_board():
     if request.method == "POST":
         new_board = request.get_json(silent=True)
-        print(new_board)
-    return json.dumps(new_board)
+        title = new_board['title']
+        board = Board(title=title)
+        board.save()
+    return redirect(url_for(get_boards))  # kérdés jó e a redirect vagy más kell
 
 
 @app.route('/api/boards/<int:board_id>', methods=['PUT'])
 def update_board(board_id):
-    pass
+    board = Board.get(Board.id == board_id)
+    new_board = request.get_json(silent=True)
+    board.title = new_board['title']
+    board.save()
+    return json.dumps(Board.get(Board.id == board_id).dicts())
 
 
 @app.route('/api/boards/<int:board_id>', methods=['DELETE'])
 def delete_board(board_id):
+    board = Board.get(Board.id == board_id)
+    board.delete_instance()
+
+
+@app.route('/api/board/<int:board_id>/cards', methods=['GET'])
+def get_cards(board_id):
     pass
 
 
-# @app.route('/api/board/<int:board_id>/cards', methods=['GET'])
-# def get_cards(board_id):
-#     pass
-#
-#
-# @app.route('/api/board/<int:board_id>/cards', methods=['POST'])
-# def post_cards(board_id):
-#     pass
+@app.route('/api/board/<int:board_id>/cards', methods=['POST'])
+def post_cards(board_id):
+    pass
 
 
-# @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['PUT'])
-# def update_cards(board_id, card_id):
-#     pass
-#
-#
-# @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['DELETE'])
-# def delete_cards(board_id, card_id):
-#     pass
+@app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['PUT'])
+def update_cards(board_id, card_id):
+    pass
+
+
+@app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['DELETE'])
+def delete_cards(board_id, card_id):
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True)
