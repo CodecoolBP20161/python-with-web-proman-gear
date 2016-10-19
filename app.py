@@ -1,12 +1,24 @@
 from flask import Flask, render_template, redirect, url_for, request
 from models import Board, Card
 import json
+from peewee import fn
+
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
     return render_template('form.html')
+
+
+@app.route('/api/uniqueBoard', methods=['GET'])
+def unique_board():
+    return json.dumps({'boardId': Board.select(fn.MAX(Board.id)).scalar()})
+
+
+@app.route('/api/uniqueCard', methods=['GET'])
+def unique_card():
+    return json.dumps({'cardId': Card.select(fn.MAX(Card.id)).scalar()})
 
 
 @app.route('/api/boards', methods=['GET'])
@@ -73,6 +85,7 @@ def update_cards(board_id, card_id):
 def delete_cards(board_id, card_id):
     card = Card.get(Card.cardLocation == board_id, Card.id == card_id)
     card.delete_instance()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
