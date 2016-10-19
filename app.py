@@ -11,23 +11,21 @@ def index():
 
 @app.route('/api/boards', methods=['GET'])
 def get_boards():
-    if request.method == 'GET':
-        boards_dict = []
-        boards = Board.select().dicts()
-        for board in boards:
-            boards_dict.append(board)
+    boards_dict = []
+    boards = Board.select().dicts()
+    for board in boards:
+        boards_dict.append(board)
     # print(boards_dict)
     return json.dumps(boards_dict)
 
 
 @app.route('/api/boards', methods=['POST'])
 def post_board():
-    if request.method == "POST":
-        new_board = request.get_json(silent=True)
-        title = new_board['title']
-        board = Board(title=title)
-        board.save()
-    return redirect(url_for(get_boards))  # kérdés jó e a redirect vagy más kell
+    new_board = request.get_json(silent=True)
+    title = new_board['title']
+    board = Board(title=title)
+    board.save()
+    # return redirect(url_for(get_boards))  # kérdés jó e a redirect vagy más kell
 
 
 @app.route('/api/boards/<int:board_id>', methods=['PUT'])
@@ -36,7 +34,7 @@ def update_board(board_id):
     new_board = request.get_json(silent=True)
     board.title = new_board['title']
     board.save()
-    return json.dumps(Board.get(Board.id == board_id).dicts())
+    # return json.dumps(Board.get(Board.id == board_id).dicts())
 
 
 @app.route('/api/boards/<int:board_id>', methods=['DELETE'])
@@ -47,22 +45,34 @@ def delete_board(board_id):
 
 @app.route('/api/board/<int:board_id>/cards', methods=['GET'])
 def get_cards(board_id):
-    pass
+    cards_dict = []
+    cards = Card.select().where(Card.cardLocation == board_id).dicts()
+    for card in cards:
+        cards_dict.append(card)
+    # print(boards_dict)
+    return json.dumps(cards_dict)
 
 
 @app.route('/api/board/<int:board_id>/cards', methods=['POST'])
 def post_cards(board_id):
-    pass
+    new_card = request.get_json(silent=True)
+    title = new_card['title']
+    card = Card(title=title, cardLocation=board_id)
+    card.save()
 
 
 @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['PUT'])
 def update_cards(board_id, card_id):
-    pass
+    card = Card.get(Card.cardLocation == board_id, Card.id == card_id)
+    new_card = request.get_json(silent=True)
+    card.title = new_card['title']
+    card.save()
 
 
 @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['DELETE'])
 def delete_cards(board_id, card_id):
-    pass
+    card = Card.get(Card.cardLocation == board_id, Card.id == card_id)
+    card.delete_instance()
 
 if __name__ == "__main__":
     app.run(debug=True)
