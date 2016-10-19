@@ -14,13 +14,13 @@ def index():
 # api for unique id to set Board object form JS
 @app.route('/api/uniqueboard', methods=['GET'])
 def unique_board():
-    return json.dumps({'boardId': Board.select(fn.MAX(Board.id)).scalar()})
+    return json.dumps({'boardId': Board.select(fn.MAX(Board.id)).scalar()+1})
 
 
 # api for unique id to set Card object form JS
 @app.route('/api/uniquecard', methods=['GET'])
 def unique_card():
-    return json.dumps({'cardId': Card.select(fn.MAX(Card.id)).scalar()})
+    return json.dumps({'cardId': Card.select(fn.MAX(Card.id)).scalar()+1})
 
 
 # get all board from database
