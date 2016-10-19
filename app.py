@@ -11,16 +11,19 @@ def index():
     return render_template('form.html')
 
 
-@app.route('/api/uniqueBoard', methods=['GET'])
+# api for unique id to set Board object form JS
+@app.route('/api/uniqueboard', methods=['GET'])
 def unique_board():
-    return json.dumps({'boardId': Board.select(fn.MAX(Board.id)).scalar()})
+    return json.dumps({'boardId': Board.select(fn.MAX(Board.id)).scalar()+1})
 
 
-@app.route('/api/uniqueCard', methods=['GET'])
+# api for unique id to set Card object form JS
+@app.route('/api/uniquecard', methods=['GET'])
 def unique_card():
-    return json.dumps({'cardId': Card.select(fn.MAX(Card.id)).scalar()})
+    return json.dumps({'cardId': Card.select(fn.MAX(Card.id)).scalar()+1})
 
 
+# get all board from database
 @app.route('/api/boards', methods=['GET'])
 def get_boards():
     boards_dict = []
@@ -31,6 +34,7 @@ def get_boards():
     return json.dumps(boards_dict)
 
 
+# save new board to database
 @app.route('/api/boards', methods=['POST'])
 def post_board():
     new_board = request.get_json(silent=True)
@@ -40,6 +44,7 @@ def post_board():
     # return redirect(url_for(get_boards))  # kérdés jó e a redirect vagy más kell
 
 
+# update old board title in database
 @app.route('/api/boards/<int:board_id>', methods=['PUT'])
 def update_board(board_id):
     board = Board.get(Board.id == board_id)
@@ -49,12 +54,14 @@ def update_board(board_id):
     # return json.dumps(Board.get(Board.id == board_id).dicts())
 
 
+# delete selected board in database
 @app.route('/api/boards/<int:board_id>', methods=['DELETE'])
 def delete_board(board_id):
     board = Board.get(Board.id == board_id)
     board.delete_instance()
 
 
+# get all card with given board id from database
 @app.route('/api/board/<int:board_id>/cards', methods=['GET'])
 def get_cards(board_id):
     cards_dict = []
@@ -65,6 +72,7 @@ def get_cards(board_id):
     return json.dumps(cards_dict)
 
 
+# save new card to database
 @app.route('/api/board/<int:board_id>/cards', methods=['POST'])
 def post_cards(board_id):
     new_card = request.get_json(silent=True)
@@ -73,6 +81,7 @@ def post_cards(board_id):
     card.save()
 
 
+# update old card title in  database
 @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['PUT'])
 def update_cards(board_id, card_id):
     card = Card.get(Card.cardLocation == board_id, Card.id == card_id)
@@ -81,6 +90,7 @@ def update_cards(board_id, card_id):
     card.save()
 
 
+# delete selected card in database
 @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['DELETE'])
 def delete_cards(board_id, card_id):
     card = Card.get(Card.cardLocation == board_id, Card.id == card_id)
