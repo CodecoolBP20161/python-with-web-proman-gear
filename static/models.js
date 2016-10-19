@@ -3,13 +3,13 @@
  */
 function Board(title, id) {
     this.title = title;
-    this.id = id.toString();
+    this.id = id;
 }
 
 function generateUniqueId(callback){
     $.ajax({
         type: 'GET',
-        url : '/api/uniqueboard',
+        url : '/api/uniqueBoard',
         success: function(response){
             callback(JSON.parse(response));
             console.log("successfully received: " + JSON.parse(response))
@@ -18,15 +18,25 @@ function generateUniqueId(callback){
             console.log("Error reading data");
         }
     });
-    var highestId = parseInt(localStorage.getItem('highestId')) || 0;
-    highestId++;
-    localStorage.setItem('highestId', highestId);
-    return highestId
 }
+
+// function generateUniqueId(response){
+//
+//
+//
+//     var highestId = parseInt(localStorage.getItem('highestId')) || 0;
+//     highestId++;
+//     localStorage.setItem('highestId', highestId);
+//     return highestId
+// }
 
 function fillBoardDetails() {
     var title = $('input').val();
-    var id = generateUniqueId();
+    var id = generateUniqueId(function(highestId){
+        if (highestId) {
+            console.log(highestId)
+            }
+        });
     return new Board(title, id);
 }
 
