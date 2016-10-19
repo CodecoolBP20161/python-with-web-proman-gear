@@ -6,6 +6,15 @@ document.getBoardsCallback = function(boards){
     }
 };
 
+document.getCardsForBoardsCallback = function(cardItems){
+    console.log(cardItems)
+    if (cardItems) {
+        for (var i = 0; i < cardItems.length; i++) {
+            createCard(cardItems[i].id, cardItems[i].title, cardItems[i].cardLocation);
+        }
+    }
+};
+
 $(document).ready(function() {
     // var id = -1;
     var storage = new MyStorage();

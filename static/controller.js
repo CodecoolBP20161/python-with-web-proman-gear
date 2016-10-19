@@ -144,20 +144,34 @@ function MyDatabaseStorage() {
 
     // this.updateBoard = function(callback)
 
-    this.getCardsForBoards = function(boardId){
-
-        // var cardlist = localStorage.getItem('cards');
-        if (cardlist) {
-            cardlist = JSON.parse(cardlist);
-            for (var key in cardlist){
-                if (boardId === key){
-                    // console.log("getcard: "+cardlist[key][0].id);
-                    return cardlist[key];
-                }
+    this.getCardsForBoards = function(callback, boardId) {
+        console.log()
+        $.ajax({
+            type: 'GET',
+            url : '/api/board/'+boardId+'/cards',
+            success: function(response){
+                callback(JSON.parse(response));
+                console.log("successfully received: " + JSON.parse(response))
+            },
+            error: function(){
+                console.log("Error reading data");
             }
-            // return cardlist;
-        }
+        });
     };
+    // function(boardId){
+    //
+    //     // var cardlist = localStorage.getItem('cards');
+    //     if (cardlist) {
+    //         cardlist = JSON.parse(cardlist);
+    //         for (var key in cardlist){
+    //             if (boardId === key){
+    //                 // console.log("getcard: "+cardlist[key][0].id);
+    //                 return cardlist[key];
+    //             }
+    //         }
+    //         // return cardlist;
+    //     }
+    // };
 
     this.getCards = function () {
         // var cardlist = localStorage.getItem('cards');
@@ -209,6 +223,24 @@ function MyDatabaseStorage() {
                 console.log("Error sending data");
             }
         });
+    };
+
+    this.updateBoard = function(boardId, newTitle) {
+        // console.log(JSON.stringify({"id":boardId, "title":newTitle}));
+        $.ajax({
+            type: 'PUT',
+            url : '/api/boards/'+ boardId,
+            data : JSON.stringify({"id":boardId, "title":newTitle}),
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(){
+                console.log("Successfully sent new title")
+            },
+            error: function(){
+                console.log("Error sending new title");
+            }
+        });
+    };
 
         // if (boards) {
         //     for (var i = 0; i < boards.length; i++) {
@@ -224,7 +256,7 @@ function MyDatabaseStorage() {
         // localStorage.setItem('boards', JSON.stringify(boards));
         // localStorage.setItem('cards', JSON.stringify(cards));
     //     }
-    };
+
 
     this.deleteCard = function(boardId, cardId) {
         var cards = this.getCards();
@@ -262,12 +294,16 @@ function MyStorage() {
         return this.implementation().saveCardsForBoards(boardId, card);
     };
 
-    this.getCardsForBoards = function (boardId) {
-        return this.implementation().getCardsForBoards(boardId);
+    this.getCardsForBoards = function (callback, boardId) {
+        return this.implementation().getCardsForBoards(callback, boardId);
     };
 
     this.deleteBoard = function (boardId) {
         return this.implementation().deleteBoard(boardId);
+    };
+
+    this.updateBoard = function(boardId, newTitle) {
+        return this.implementation().updateBoard(boardId, newTitle);
     };
 
     this.deleteCard = function (boardId, cardId) {
@@ -296,12 +332,12 @@ var board = function (id, storage) {
     $('.container').hide();
     $('.cards-container').show();
     $('.list-group-item').remove();
-    var cardItems = storage.getCardsForBoards(id);
-    if (cardItems) {
-        for (var i = 0; i < cardItems.length; i++) {
-            createCard(cardItems[i].id, cardItems[i].title, cardItems[i].cardLocation);
-        }
-    }
+    storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
+    // if (cardItems) {
+    //     for (var i = 0; i < cardItems.length; i++) {
+    //         createCard(cardItems[i].id, cardItems[i].title, cardItems[i].cardLocation);
+    //     }
+    // }
 };
 
 var saveCard = function (id, storage) {
