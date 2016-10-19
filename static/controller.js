@@ -122,14 +122,27 @@ function MyDatabaseStorage() {
 
     this.saveBoard = function(board) {
         var boards = this.getBoards();
-        if (boards){
-            boards.push(board);
-        } else {
-            boards = [board];
-        }
+        // if (boards){
+        //     boards.push(board);
+        // } else {
+        //     boards = [board];
+        // }
+        console.log(JSON.stringify(board))
+        $.ajax({
+            type: 'POST',
+            url : '/api/boards',
+            data : JSON.stringify(board),
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(){
+                console.log("Successfully sent data")
+            },
+            error: function(){
+                console.log("Error sending data");
+            }
+        });
 
         // localStorage.setItem('boards', JSON.stringify(boards));
-
     };
 
     this.getCardsForBoards = function(boardId){
@@ -215,10 +228,6 @@ function MyDatabaseStorage() {
         }
     };
 }
-
-
-
-
 
 
 

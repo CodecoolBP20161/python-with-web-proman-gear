@@ -6,7 +6,18 @@ function Board(title, id) {
     this.id = id.toString();
 }
 
-function generateUniqueId(){
+function generateUniqueId(callback){
+    $.ajax({
+        type: 'GET',
+        url : '/api/uniqueboard',
+        success: function(response){
+            callback(JSON.parse(response));
+            console.log("successfully received: " + JSON.parse(response))
+        },
+        error: function(){
+            console.log("Error reading data");
+        }
+    });
     var highestId = parseInt(localStorage.getItem('highestId')) || 0;
     highestId++;
     localStorage.setItem('highestId', highestId);
