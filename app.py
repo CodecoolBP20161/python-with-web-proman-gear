@@ -58,6 +58,9 @@ def update_board(board_id):
 def delete_board(board_id):
     print(type(board_id))
     board = Board.get(Board.id == board_id)
+    cards = Card.select().where(Card.cardLocation == board_id)
+    for card in cards:
+        card.delete_instance()
     board.delete_instance()
     return json.dumps({'success': True})
 
