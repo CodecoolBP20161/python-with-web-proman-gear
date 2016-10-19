@@ -1,6 +1,6 @@
 document.getBoardsCallback = function(boards){
     if (boards) {
-        for (var i = 0; i < boards.length; i++) {
+        for (var i = boards.length-1; i >= 0; i--) {
             createBoard(boards[i].id, boards[i].title);
         }
     }
@@ -13,6 +13,7 @@ $(document).ready(function() {
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
     $('.board-display').hide();
+
 
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();

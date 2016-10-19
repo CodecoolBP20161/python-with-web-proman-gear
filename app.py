@@ -30,7 +30,6 @@ def get_boards():
     boards = Board.select().dicts()
     for board in boards:
         boards_dict.append(board)
-    # print(boards_dict)
     return json.dumps(boards_dict)
 
 
@@ -39,9 +38,7 @@ def get_boards():
 def post_board():
     new_board = request.get_json(silent=True)
     title = new_board['title']
-    print(title)
     board = Board(title=title)
-    print(board)
     board.save()
     return json.dumps({'success': True})
 
@@ -53,7 +50,7 @@ def update_board(board_id):
     new_board = request.get_json(silent=True)
     board.title = new_board['title']
     board.save()
-    return json.dumps({'succes': True})
+    return json.dumps({'success': True})
 
 
 # delete selected board in database
@@ -61,7 +58,7 @@ def update_board(board_id):
 def delete_board(board_id):
     board = Board.get(Board.id == board_id)
     board.delete_instance()
-    return json.dumps({'succes': True})
+    return json.dumps({'success': True})
 
 
 # get all card with given board id from database
@@ -82,7 +79,7 @@ def post_cards(board_id):
     title = new_card['title']
     card = Card(title=title, cardLocation=board_id)
     card.save()
-    return json.dumps({'succes': True})
+    return json.dumps({'success': True})
 
 
 # update old card title in  database
@@ -92,7 +89,7 @@ def update_cards(board_id, card_id):
     new_card = request.get_json(silent=True)
     card.title = new_card['title']
     card.save()
-    return json.dumps({'succes': True})
+    return json.dumps({'success': True})
 
 
 # delete selected card in database
@@ -100,7 +97,7 @@ def update_cards(board_id, card_id):
 def delete_cards(board_id, card_id):
     card = Card.get(Card.cardLocation == board_id, Card.id == card_id)
     card.delete_instance()
-    return json.dumps({'succes': True})
+    return json.dumps({'success': True})
 
 
 if __name__ == "__main__":

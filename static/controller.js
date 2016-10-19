@@ -127,7 +127,10 @@ function MyDatabaseStorage() {
         // } else {
         //     boards = [board];
         // }
-        console.log(JSON.stringify(board))
+        console.log('save');
+        $('.board').parent().hide();
+        $('.board').parent().empty();
+        console.log(JSON.stringify(board));
         $.ajax({
             type: 'POST',
             url : '/api/boards',
