@@ -56,6 +56,7 @@ def update_board(board_id):
 # delete selected board in database
 @app.route('/api/boards/<int:board_id>', methods=['DELETE'])
 def delete_board(board_id):
+    print(type(board_id))
     board = Board.get(Board.id == board_id)
     board.delete_instance()
     return json.dumps({'success': True})

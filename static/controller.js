@@ -122,11 +122,6 @@ function MyDatabaseStorage() {
 
     this.saveBoard = function(board) {
         var boards = this.getBoards(document.getBoardsCallback);
-        // if (boards){
-        //     boards.push(board);
-        // } else {
-        //     boards = [board];
-        // }
         console.log('save');
         $('.board').parent().hide();
         $('.board').parent().empty();
@@ -144,9 +139,10 @@ function MyDatabaseStorage() {
                 console.log("Error sending data");
             }
         });
-
         // localStorage.setItem('boards', JSON.stringify(boards));
     };
+
+    // this.updateBoard = function(callback)
 
     this.getCardsForBoards = function(boardId){
 
@@ -198,22 +194,36 @@ function MyDatabaseStorage() {
     };
 
     this.deleteBoard = function(boardId) {
-        var boards = this.getBoards();
-        var cards = this.getCards();
-        if (boards) {
-            for (var i = 0; i < boards.length; i++) {
-                if (boards[i].id === boardId) {
-                    boards.splice(i, 1);
-                }
+        // var boards = this.getBoards(document.getBoardsCallback);
+        // var cards = this.getCards();
+        $.ajax({
+            type: 'DELETE',
+            url : '/api/boards/'+ boardId,
+            data : JSON.stringify({"id":boardId}),
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(){
+                console.log("Successfully sent data")
+            },
+            error: function(){
+                console.log("Error sending data");
             }
-            for (var key in cards) {
-                if (boardId === key){
-                    delete cards[key];
-                }
-            }
+        });
+
+        // if (boards) {
+        //     for (var i = 0; i < boards.length; i++) {
+        //         if (boards[i].id === boardId) {
+        //             boards.splice(i, 1);
+        //         }
+        //     }
+        //     for (var key in cards) {
+        //         if (boardId === key){
+        //             delete cards[key];
+        //         }
+        //     }
         // localStorage.setItem('boards', JSON.stringify(boards));
         // localStorage.setItem('cards', JSON.stringify(cards));
-        }
+    //     }
     };
 
     this.deleteCard = function(boardId, cardId) {

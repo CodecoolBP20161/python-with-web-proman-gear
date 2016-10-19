@@ -3,11 +3,6 @@
  */
  function Board(title) {
      this.title = title;
-     // this.id = generateUniqueId(function(highestId){
-     //     if (highestId) {
-     //         console.log(highestId)
-     //     }
-     // });
  }
 
 function generateUniqueId(callback){
@@ -24,23 +19,10 @@ function generateUniqueId(callback){
     });
 }
 
-// function generateUniqueId(response){
-//
-//
-//
-//     var highestId = parseInt(localStorage.getItem('highestId')) || 0;
-//     highestId++;
-//     localStorage.setItem('highestId', highestId);
-//     return highestId
-// }
+
 
 function fillBoardDetails() {
     var title = $('input').val();
-    // var id = generateUniqueId(function(highestId){
-    //     if (highestId) {
-    //         console.log(highestId)
-    //         }
-    //     });
     return new Board(title);
 }
 

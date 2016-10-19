@@ -7,7 +7,7 @@ document.getBoardsCallback = function(boards){
 };
 
 $(document).ready(function() {
-    var id = -1;
+    // var id = -1;
     var storage = new MyStorage();
     storage.getBoards(document.getBoardsCallback);
     $('.cards-container').hide();
