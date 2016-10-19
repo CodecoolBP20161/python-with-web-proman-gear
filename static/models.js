@@ -1,17 +1,21 @@
 /**
  * Created by szilard on 2016.10.06..
  */
-function Board(title, id) {
-    this.title = title;
-    this.id = id;
-}
+ function Board(title) {
+     this.title = title;
+     // this.id = generateUniqueId(function(highestId){
+     //     if (highestId) {
+     //         console.log(highestId)
+     //     }
+     // });
+ }
 
 function generateUniqueId(callback){
     $.ajax({
         type: 'GET',
-        url : '/api/uniqueBoard',
+        url : '/api/uniqueboard',
         success: function(response){
-            callback(JSON.parse(response));
+            callback(JSON.parse(response))
             console.log("successfully received: " + JSON.parse(response))
         },
         error: function(){
@@ -32,12 +36,12 @@ function generateUniqueId(callback){
 
 function fillBoardDetails() {
     var title = $('input').val();
-    var id = generateUniqueId(function(highestId){
-        if (highestId) {
-            console.log(highestId)
-            }
-        });
-    return new Board(title, id);
+    // var id = generateUniqueId(function(highestId){
+    //     if (highestId) {
+    //         console.log(highestId)
+    //         }
+    //     });
+    return new Board(title);
 }
 
 function Card(title, id, cardLocation) {

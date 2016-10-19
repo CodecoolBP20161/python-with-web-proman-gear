@@ -1,14 +1,15 @@
+document.getBoardsCallback = function(boards){
+    if (boards) {
+        for (var i = 0; i < boards.length; i++) {
+            createBoard(boards[i].id, boards[i].title);
+        }
+    }
+};
 
 $(document).ready(function() {
     var id = -1;
     var storage = new MyStorage();
-    storage.getBoards(function(boards){
-        if (boards) {
-            for (var i = 0; i < boards.length; i++) {
-                createBoard(boards[i].id, boards[i].title);
-            }
-        }
-    });
+    storage.getBoards(document.getBoardsCallback);
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
     $('.board-display').hide();

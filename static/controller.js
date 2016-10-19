@@ -121,7 +121,7 @@ function MyDatabaseStorage() {
     };
 
     this.saveBoard = function(board) {
-        var boards = this.getBoards();
+        var boards = this.getBoards(document.getBoardsCallback);
         // if (boards){
         //     boards.push(board);
         // } else {

@@ -41,6 +41,7 @@ def post_board():
     title = new_board['title']
     board = Board(title=title)
     board.save()
+    return "ok"  # needs to have a return value
     # return redirect(url_for(get_boards))  # kérdés jó e a redirect vagy más kell
 
 
