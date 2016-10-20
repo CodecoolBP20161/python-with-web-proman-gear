@@ -261,22 +261,25 @@ function MyDatabaseStorage() {
             }
         });
     };
-
-        // if (boards) {
-        //     for (var i = 0; i < boards.length; i++) {
-        //         if (boards[i].id === boardId) {
-        //             boards.splice(i, 1);
-        //         }
-        //     }
-        //     for (var key in cards) {
-        //         if (boardId === key){
-        //             delete cards[key];
-        //         }
-        //     }
-        // localStorage.setItem('boards', JSON.stringify(boards));
-        // localStorage.setItem('cards', JSON.stringify(cards));
-    //     }
-
+    
+    this.updateCard = function (boardId, cardId, newTitle) {
+     $.ajax({
+            type: 'PUT',
+            url : '/api/board/'+ boardId+'/cards/'+cardId,
+            data : JSON.stringify({"title":newTitle}),
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(){
+                console.log("Successfully sent new title")
+            },
+            error: function(){
+                console.log("Error sending new title");
+            }
+        });
+    };
+        
+    
+        
 
     this.deleteCard = function(boardId, cardId) {
         console.log("deletecard");
@@ -331,6 +334,10 @@ function MyStorage() {
 
     this.deleteCard = function (boardId, cardId) {
         return this.implementation().deleteCard(boardId, cardId);
+    };
+    
+    this.updateCard = function(boardId, cardId, newTitle) {
+        return this.implementation().updateCard(boardId, cardId, newTitle);
     };
 
 
