@@ -1,17 +1,29 @@
+document.getBoardsCallback = function(boards){
+    if (boards) {
+        for (var i = boards.length-1; i >= 0; i--) {
+            createBoard(boards[i].id, boards[i].title);
+        }
+    }
+};
+
+document.getCardsForBoardsCallback = function(cardItems){
+    //console.log("EZ?"+cardItems)
+    if (cardItems) {
+        for (var i = 0; i < cardItems.length; i++) {
+            createCard(cardItems[i].id, cardItems[i].title, cardItems[i].cardLocation);
+        }
+    }
+};
 
 $(document).ready(function() {
     var id = -1;
     var storage = new MyStorage();
-    var boards = storage.getBoards();
+    storage.getBoards(document.getBoardsCallback);
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
     $('.board-display').hide();
-    if (boards) {
-        for (var i = 0; i < boards.length; i++) {
-            createBoard(boards[i].id, boards[i].title);
-        }
-    }
-    //need more comments
+
+
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
     });
@@ -58,7 +70,7 @@ $(document).ready(function() {
         $('.container').show();
         $('#navbar-back-board').hide();
     });
-    
+
     // $(".navbar-proman").click( function() {
     //     console.log("fuck");
     //     $('#proman').popover('toggle', placement="bottom");
@@ -72,8 +84,11 @@ $(document).ready(function() {
     $(document).on("click", ".close-card",  function () {
         $cardId = $(this).attr('id');
         $boardIdCard = $(this).attr('role');
-        cardDeleteConfirm(storage);
+        console.log($cardId + " " + $boardIdCard);
+        cardDeleteConfirm(storage,id, $cardId);
+        
+        $('.cards-container').hide();
+        $('.cards-container').show();
+        $('.card-link').show();
     });
 });
-
-    
