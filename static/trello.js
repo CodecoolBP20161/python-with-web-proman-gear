@@ -111,6 +111,7 @@ $(document).ready(function() {
             var newTitle = $('.board-title').val();
             if (newTitle !== oldTitle) {
                 storage.updateBoard(boardid, newTitle);
+                 $('#myModal').modal("hide");
                 $('.board').parent().remove();
                 $('.close-btn').parent().remove();
                 storage.getBoards(document.getBoardsCallback);
