@@ -410,6 +410,7 @@ var cardDeleteConfirm = function (storage, boardId, cardId) {
                     
                     console.log("remove JEE");
                       }
+              $('.list-group-item#'+ $cardId).hide();
               }
             });
     });

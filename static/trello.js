@@ -87,7 +87,7 @@ $(document).ready(function() {
         $boardIdCard = $(this).attr('role');
         console.log($cardId + " " + $boardIdCard);
         cardDeleteConfirm(storage,id, $cardId);
-        $('.list-group-item#'+ $cardId).hide();
+        
         $('.cards-container').hide();
         $('.cards-container').show();
         $('.card-link').show();
