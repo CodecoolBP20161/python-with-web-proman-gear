@@ -35,9 +35,10 @@
 
   <!--Board content-->
   <div class="container">
+
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">
-        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal">New Board</button>
+        <button type="button" class="btn btn-info btn-block" id ="new-board" data-toggle="modal" data-target="#myModal">New Board</button>
       </div>
     </div>
   </div>
@@ -64,6 +65,7 @@
 
         <div class="modal-footer">
           <input type="button" class="btn btn-primary" id="save_board" value="Save">
+          <input type="button" class="btn btn-primary" id="edit_board" value="Edit">
           <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
         </div>
 
@@ -95,6 +97,7 @@
       <div class="card-block add-card">
         <textarea class="form-control card-input" autofocus placeholder="  CARD TITLE" maxlength="200"></textarea>
         <input type="button" class="btn btn-primary btn-card" id="save-card" value="Save">
+          <input type="button" class="btn btn-primary btn-card" id="edit-card" value="Edit">
         <input type="button" class="btn btn-default btn-card" id="cancel-card" value="Cancel">
       </div>
 

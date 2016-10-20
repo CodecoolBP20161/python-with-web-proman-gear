@@ -15,13 +15,13 @@ var createBoard = function (id, title) {
         return $('.row').append('<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-2">' +
             '<button type="button"' + ' class="btn btn-primary btn-block board" id="' + id + '" role="' + title + '">' + title +'' +
             '<button type="button" id="' + id + '"class="close close-btn" data-dismiss=btn-primary aria-hidden="true">&times;</button>' +
-            '<a href="#" class="board-pencil" id="'+title+'"><span class="glyphicon glyphicon-pencil" id="' + id + '"></span></a></button></div>')
+            '<a href="#" class="board-pencil" id="'+title+'" data-board = "' + id + '"><span class="glyphicon glyphicon-pencil" id="' + id + '"></span></a></button></div>')
     };
 
 var createCard = function (id, title, location) {
         return $('.list-group').append('<li class="list-group-item" id="' + id + '">' + title + '' +
             '<button type="button" role="' + location + '" id="' + id + '"class="close close-card" data-dismiss=list-group-item aria-hidden="true">' +
-            '&times;</button><a href="#" class="card-pencil" id="'+title+'"><span class="glyphicon glyphicon-pencil" id="' + id + '"></span></a></li>'
+            '&times;</button><a href="#" class="card-pencil" id="'+title+'" data-card = "' + id + '"><span class="glyphicon glyphicon-pencil" id="' + id + '"></span></a></li>'
             );
     };
 
