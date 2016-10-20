@@ -7,7 +7,7 @@ document.getBoardsCallback = function(boards){
 };
 
 document.getCardsForBoardsCallback = function(cardItems){
-    console.log(cardItems)
+    //console.log("EZ?"+cardItems)
     if (cardItems) {
         for (var i = 0; i < cardItems.length; i++) {
             createCard(cardItems[i].id, cardItems[i].title, cardItems[i].cardLocation);
@@ -16,7 +16,7 @@ document.getCardsForBoardsCallback = function(cardItems){
 };
 
 $(document).ready(function() {
-    // var id = -1;
+    var id = -1;
     var storage = new MyStorage();
     storage.getBoards(document.getBoardsCallback);
     $('.cards-container').hide();
@@ -55,6 +55,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#save-card', function() {
+        
         saveCard(id, storage);
     });
 
@@ -84,6 +85,11 @@ $(document).ready(function() {
     $(document).on("click", ".close-card",  function () {
         $cardId = $(this).attr('id');
         $boardIdCard = $(this).attr('role');
-        cardDeleteConfirm(storage);
+        console.log($cardId + " " + $boardIdCard);
+        cardDeleteConfirm(storage,id, $cardId);
+        $('.list-group-item#'+ $cardId).hide();
+        $('.cards-container').hide();
+        $('.cards-container').show();
+        $('.card-link').show();
     });
 });

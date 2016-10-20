@@ -100,7 +100,8 @@ def update_cards(board_id, card_id):
 @app.route('/api/board/<int:board_id>/cards/<int:card_id>', methods=['DELETE'])
 def delete_cards(board_id, card_id):
     card = Card.get(Card.cardLocation == board_id, Card.id == card_id)
-    card.delete_instance()
+    if card:
+        card.delete_instance()
     return json.dumps({'success': True})
 
 

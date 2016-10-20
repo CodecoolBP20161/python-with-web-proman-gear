@@ -145,13 +145,13 @@ function MyDatabaseStorage() {
     // this.updateBoard = function(callback)
 
     this.getCardsForBoards = function(callback, boardId) {
-        console.log()
+
         $.ajax({
             type: 'GET',
             url : '/api/board/'+boardId+'/cards',
             success: function(response){
                 callback(JSON.parse(response));
-                console.log("successfully received: " + JSON.parse(response))
+                console.log("EZKELL successfully received: " + JSON.parse(response))
             },
             error: function(){
                 console.log("Error reading data");
@@ -183,29 +183,49 @@ function MyDatabaseStorage() {
     };
 
     this.saveCardsForBoards = function(boardId, card) {
-        var cards = this.getCards();
-        var cardKeys = [];
-        if (cards){
-            for (var key in cards){
-                cardKeys.push(key);
-                if (boardId === key){
-                    cards[key].push(card);
-                }
-                 console.log("append:" + cards);
+        var boards = this.getBoards(document.getBoardsCallback);
+        console.log('save');
+        $('.board').parent().hide();
+        $('.board').parent().empty();
+        console.log(JSON.stringify(card));
+        $.ajax({
+            type: 'POST',
+            url : '/api/board/'+boardId+'/cards',
+            data : JSON.stringify({'title': card}),
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(){
+                console.log("Successfully sent data")
+            },
+            error: function(){
+                console.log("Error sending data");
             }
-            var contains = $.inArray(boardId, cardKeys);
-            if (contains === -1){
-                cards[boardId] = [card];
-                 console.log("new:" + cards);
-            }
-        } else {
-            var cards = {};
-            cards[boardId] = [card];
-            console.log("first:" + cards);
-
-        }
-        // localStorage.setItem('cards', JSON.stringify(cards));
+        });
+        // localStorage.setItem('boards', JSON.stringify(boards));
     };
+    //     var cards = this.getCards();
+    //     var cardKeys = [];
+    //     if (cards){
+    //         for (var key in cards){
+    //             cardKeys.push(key);
+    //             if (boardId === key){
+    //                 cards[key].push(card);
+    //             }
+    //              console.log("append:" + cards);
+    //         }
+    //         var contains = $.inArray(boardId, cardKeys);
+    //         if (contains === -1){
+    //             cards[boardId] = [card];
+    //              console.log("new:" + cards);
+    //         }
+    //     } else {
+    //         var cards = {};
+    //         cards[boardId] = [card];
+    //         console.log("first:" + cards);
+    //
+    //     }
+    //     // localStorage.setItem('cards', JSON.stringify(cards));
+    // };
 
     this.deleteBoard = function(boardId) {
         // var boards = this.getBoards(document.getBoardsCallback);
@@ -259,18 +279,21 @@ function MyDatabaseStorage() {
 
 
     this.deleteCard = function(boardId, cardId) {
-        var cards = this.getCards();
-        if (cards) {
-            for (var key in cards) {
-                for (var i=0; i < cards[key].length; i++) {
-                    console.log(boardId, cardId);
-                    if (boardId === key && cardId === cards[key][i].id) {
-                        cards[key].splice(i, 1);
-                    }
-                }
+        console.log("deletecard");
+        $('.list-group-item#'+ cardId).remove();
+        $.ajax({
+            type: 'DELETE',
+            url : '/api/board/'+ boardId+'/cards/'+cardId,
+            data : JSON.stringify({"boardid":boardId, "cardid":cardId}),
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(){
+                console.log("Successfully sent data")
+            },
+            error: function(){
+                console.log("Error sending data");
             }
-        // localStorage.setItem('cards', JSON.stringify(cards));
-        }
+        });
     };
 }
 
@@ -343,9 +366,14 @@ var board = function (id, storage) {
 var saveCard = function (id, storage) {
     var value = $(".card-input").val();
     if (value) {
-    var card = fillCardDetails(id);
-    storage.saveCardsForBoards(id, card);
-    createCard(card.id, value);
+    
+    storage.saveCardsForBoards(id, value);
+    $('.list-group-flush').empty();
+    $('.add-card').slideUp(900);
+    $('.card-link').show(1000);
+    storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
+        //console.log(card.id);
+    //createCard(id, value);
     $(".card-input").val("");
     } else {
         alertMessage('Please fill card title!');
@@ -370,16 +398,17 @@ var boardDeleteConfirm = function (storage) {
 
 };
 
-var cardDeleteConfirm = function (storage) {
+var cardDeleteConfirm = function (storage, boardId, cardId) {
     $(function() {
             bootbox.confirm({
               size: "small",
               message: "Are you sure?",
               callback: function(result){
                   if (result){
-                    storage.deleteCard($boardIdCard, $cardId);
-                    $('.list-group-item#'+ $cardId).remove();
-                    $('.close-card#'+ $cardId).remove();
+                    storage.deleteCard( boardId, cardId);
+                    //$('.close-card#'+cardId).parent().remove();
+                    
+                    console.log("remove JEE");
                       }
               }
             });
