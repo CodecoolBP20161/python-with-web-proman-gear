@@ -55,9 +55,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#save-card', function() {
-        
         saveCard(id, storage);
-
     });
 
     $(document).on('click', '#cancel-card', function() {
