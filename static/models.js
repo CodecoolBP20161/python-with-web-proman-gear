@@ -19,8 +19,6 @@ function generateUniqueId(callback){
     });
 }
 
-
-
 function fillBoardDetails() {
     var title = $('input').val();
     return new Board(title);
