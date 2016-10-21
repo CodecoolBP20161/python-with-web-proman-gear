@@ -134,3 +134,5 @@ crashlytics-build.properties
 fabric.properties
 
 db_user.json
+
+venv
