@@ -21,7 +21,6 @@ $(document).ready(function() {
     var id = -1;
     var storage = new MyStorage();
     storage.getBoards(document.getBoardsCallback);
-
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
     $('.board-display').hide();
@@ -67,6 +66,10 @@ $(document).ready(function() {
 
     $(document).on('click', '#save-card', function() {
         saveCard(id, storage);
+        $('.list-group-flush').empty();
+        $('.add-card').slideUp(900);
+        $('.card-link').show(1000);
+        storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
     });
 
     $(document).on('click', '#cancel-card', function() {
@@ -102,15 +105,15 @@ $(document).ready(function() {
     $(document).on("click", ".board-pencil", function(){
         var boardName = $(this).attr('id');
         var boardid = $(this).attr('data-board');
-        var oldTitle = $('.board-title').val(boardName);
+        // var oldTitle = $('.board-title').val(boardName);
         $('#edit_board').show();
         $('#save_board').hide();
         $('#myModal').modal("show");
         //update board title and display
         $(document).on('click', '#edit_board', function() {
             var newTitle = $('.board-title').val();
-            if (newTitle !== oldTitle && newTitle.trim() != "") {
-                storage.updateBoard(boardid, $('.board-title').val());
+            if (newTitle !== boardName && newTitle.trim() != "") {
+                storage.updateBoard(boardid, newTitle);
             }
             $('#myModal').modal("hide");
             $('.board').parent().remove();
@@ -124,7 +127,6 @@ $(document).ready(function() {
     $(document).on("click", ".card-pencil", function(){
         var cardName = $(this).attr('id');
         var cardId = $(this).attr('data-card');
-        var oldTitle = $('.card-input').val(cardName);
         $('.card-input').val(cardName);
         $('.add-card').slideDown(1000);
         $('#edit-card').show();
@@ -133,12 +135,13 @@ $(document).ready(function() {
         //update card title and display
         $(document).on('click', '#edit-card', function() {
             var newTitle = $('.card-input').val();
-            if (newTitle != oldTitle && newTitle.trim() != "") {
+            console.log("NEW "+newTitle+"OLD "+cardName);
+            if (newTitle != cardName && newTitle.trim() != "") {
                 storage.updateCard(id, cardId, newTitle);
             }
+            $('.list-group-flush').empty();
             $('.add-card').slideUp(900);
             $('.card-link').show(1000);
-            $('.list-group-flush').empty();
             $('.card-input').val("");
             storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
         });
