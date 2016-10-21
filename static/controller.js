@@ -208,10 +208,6 @@ var saveCard = function (id, storage) {
     var value = $(".card-input").val();
     if (value) {
         storage.saveCardsForBoards(id, value);
-        $('.list-group-flush').empty();
-        $('.add-card').slideUp(900);
-        $('.card-link').show(1000);
-        storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
         $(".card-input").val("");
     } else {
         alertMessage('Please fill card title!');
