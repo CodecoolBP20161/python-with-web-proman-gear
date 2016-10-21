@@ -99,20 +99,21 @@ $(document).ready(function() {
         $('#myModal').modal("show");
         $(document).on('click', '#edit_board', function() {
             var newTitle = $('.board-title').val();
-            if (newTitle !== oldTitle) {
-                storage.updateBoard(boardid, newTitle);
-                $('#myModal').modal("hide");
-                $('.board').parent().remove();
-                $('.close-btn').parent().remove();
-                storage.getBoards(document.getBoardsCallback);
-                $('.board-title').val("");
+            if (newTitle !== oldTitle && newTitle !== "" && newTitle !== " ") {
+                storage.updateBoard(boardid, $('.board-title').val());
             }
+            $('#myModal').modal("hide");
+            $('.board').parent().remove();
+            $('.close-btn').parent().remove();
+            $('.board-title').val(" ");
+            storage.getBoards(document.getBoardsCallback);
         });
     });
 
     $(document).on("click", ".card-pencil", function(){
         var cardName = $(this).attr('id');
         var cardId = $(this).attr('data-card');
+        var oldTitle = $('.card-input').val(cardName);
         $('.card-input').val(cardName);
         $('.add-card').slideDown(1000);
         $('#edit-card').show();
@@ -120,12 +121,14 @@ $(document).ready(function() {
         $('.add-card').find('[autofocus]').focus();
         $(document).on('click', '#edit-card', function() {
             var newTitle = $('.card-input').val();
-            storage.updateCard(id, cardId, newTitle);
+            if (newTitle !== oldTitle && newTitle !== "" && newTitle !== " ") {
+                storage.updateCard(id, cardId, newTitle);
+            }
             $('.add-card').slideUp(900);
             $('.card-link').show(1000);
             $('.list-group-flush').empty();
+            $('.card-input').val(" ");
             storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
-            $('.card-input').val("");
         });
     });
 });
