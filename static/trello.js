@@ -1,16 +1,28 @@
+document.getBoardsCallback = function(boards){
+    if (boards) {
+        for (var i = boards.length-1; i >= 0; i--) {
+            createBoard(boards[i].id, boards[i].title);
+        }
+    }
+};
+
+document.getCardsForBoardsCallback = function(cardItems){
+    //console.log("EZ?"+cardItems)
+    if (cardItems) {
+        for (var i = 0; i < cardItems.length; i++) {
+            createCard(cardItems[i].id, cardItems[i].title, cardItems[i].cardLocation);
+        }
+    }
+};
 
 $(document).ready(function() {
     var id = -1;
     var storage = new MyStorage();
-    var boards = storage.getBoards();
+    storage.getBoards(document.getBoardsCallback);
+
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
     $('.board-display').hide();
-    if (boards) {
-        for (var i = 0; i < boards.length; i++) {
-            createBoard(boards[i].id, boards[i].title);
-        }
-    }
 
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
@@ -18,6 +30,12 @@ $(document).ready(function() {
 
     $(document).on('click', '#save_board', function() {
         saveBoard(storage);
+    });
+
+    $(document).on("click","#new-board", function () {
+        $('#edit_board').hide();
+        $('#save_board').show();
+        $('.board-title').val("");
     });
 
     $(document).on("click",".board", function () {
@@ -37,9 +55,8 @@ $(document).ready(function() {
     $(document).on('click', '.card-link', function() {
         $('.card-link').hide();
         $('.add-card').slideDown(1000);
-        // $(this).find('[autofocus]').focus();
-        // $('#title').focus();
-
+        $('#edit-card').hide();
+        $('#save-card').show();
     });
 
     $(document).on('click', '#save-card', function() {
@@ -58,11 +75,6 @@ $(document).ready(function() {
         $('.container').show();
         $('#navbar-back-board').hide();
     });
-    
-    // $(".navbar-proman").click( function() {
-    //     console.log("fuck");
-    //     $('#proman').popover('toggle', placement="bottom");
-    // })
 
     $(document).on("click", ".close-btn",  function () {
         $boardId = $(this).attr('id');
@@ -72,8 +84,51 @@ $(document).ready(function() {
     $(document).on("click", ".close-card",  function () {
         $cardId = $(this).attr('id');
         $boardIdCard = $(this).attr('role');
-        cardDeleteConfirm(storage);
+        cardDeleteConfirm(storage,id, $cardId);
+        $('.cards-container').hide();
+        $('.cards-container').show();
+        $('.card-link').show();
+    });
+
+    $(document).on("click", ".board-pencil", function(){
+        var boardName = $(this).attr('id');
+        var boardid = $(this).attr('data-board');
+        var oldTitle = $('.board-title').val(boardName);
+        $('#edit_board').show();
+        $('#save_board').hide();
+        $('#myModal').modal("show");
+        $(document).on('click', '#edit_board', function() {
+            var newTitle = $('.board-title').val();
+            if (newTitle !== oldTitle && newTitle !== "" && newTitle !== " ") {
+                storage.updateBoard(boardid, $('.board-title').val());
+            }
+            $('#myModal').modal("hide");
+            $('.board').parent().remove();
+            $('.close-btn').parent().remove();
+            $('.board-title').val(" ");
+            storage.getBoards(document.getBoardsCallback);
+        });
+    });
+
+    $(document).on("click", ".card-pencil", function(){
+        var cardName = $(this).attr('id');
+        var cardId = $(this).attr('data-card');
+        var oldTitle = $('.card-input').val(cardName);
+        $('.card-input').val(cardName);
+        $('.add-card').slideDown(1000);
+        $('#edit-card').show();
+        $('#save-card').hide();
+        $('.add-card').find('[autofocus]').focus();
+        $(document).on('click', '#edit-card', function() {
+            var newTitle = $('.card-input').val();
+            if (newTitle !== oldTitle && newTitle !== "" && newTitle !== " ") {
+                storage.updateCard(id, cardId, newTitle);
+            }
+            $('.add-card').slideUp(900);
+            $('.card-link').show(1000);
+            $('.list-group-flush').empty();
+            $('.card-input').val(" ");
+            storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
+        });
     });
 });
-
-    

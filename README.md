@@ -1,2 +1,3 @@
 # python-with-web-proman
-This is the second exercise in the Python with Web module, see instructions in Canvas
+Please create a DB in Postgres for and after run build.py
+Start the server with app.py
