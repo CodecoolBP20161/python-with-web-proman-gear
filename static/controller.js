@@ -17,12 +17,11 @@ function MyDatabaseStorage() {
     };
 
     //ajax request to save new board to DB
-    this.saveBoard = function(board) {
-        var boards = this.getBoards(document.getBoardsCallback);
+    this.saveBoard = function(boardTitle) {
         $.ajax({
             type: 'POST',
             url : '/api/boards',
-            data : JSON.stringify(board),
+            data : JSON.stringify({'title': boardTitle}),
             dataType : "json",
             contentType: "application/json; charset=utf-8",
             success: function(){
@@ -183,13 +182,13 @@ function MyStorage() {
 var saveBoard = function(storage){
         var value = $(".form-control").val();
         if (value) {
-            var board = fillBoardDetails();
+            var title = $('input').val();
             $('.board').parent().hide();
             $('.board').parent().empty();
-            storage.saveBoard(board);
+            storage.saveBoard(title);
             $('#myModal').modal('hide');
             $(".form-control").val("");
-            createBoard(board.id, board.title);
+            storage.getBoards(document.getBoardsCallback);
         } else {
             alertMessage('Please fill board title!');
         }

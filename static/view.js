@@ -1,6 +1,7 @@
 /**
  * Created by szilard on 2016.10.06..
  */
+//alert message if something went wrong
 var alertMessage = function (label) {
         var alert = '<div class="alert alert-dismissible alert-warning"> ' +
                 '<button type="button" class="close" data-dismiss="alert">&times;</button> ' +
