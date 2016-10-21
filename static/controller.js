@@ -1,6 +1,3 @@
-/**
- * Created by szilard on 2016.10.06..
- */
 function MyLocalStorage() {
 
     this.getBoards= function() {
@@ -103,6 +100,7 @@ function MyLocalStorage() {
         }
     };
 }
+
 
 function MyDatabaseStorage() {
 
