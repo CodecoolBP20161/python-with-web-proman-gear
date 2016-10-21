@@ -19,10 +19,10 @@ $(document).ready(function() {
     var id = -1;
     var storage = new MyStorage();
     storage.getBoards(document.getBoardsCallback);
+
     $('.cards-container').hide();
     $('#navbar-back-board').hide();
     $('.board-display').hide();
-
 
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
@@ -37,7 +37,6 @@ $(document).ready(function() {
         $('#save_board').show();
         $('.board-title').val("");
     });
-
 
     $(document).on("click",".board", function () {
         $title = $(this).attr('role');
@@ -58,9 +57,6 @@ $(document).ready(function() {
         $('.add-card').slideDown(1000);
         $('#edit-card').hide();
         $('#save-card').show();
-        // $(this).find('[autofocus]').focus();
-        // $('#title').focus();
-
     });
 
     $(document).on('click', '#save-card', function() {
@@ -80,11 +76,6 @@ $(document).ready(function() {
         $('#navbar-back-board').hide();
     });
 
-    // $(".navbar-proman").click( function() {
-    //     console.log("fuck");
-    //     $('#proman').popover('toggle', placement="bottom");
-    // })
-
     $(document).on("click", ".close-btn",  function () {
         $boardId = $(this).attr('id');
         boardDeleteConfirm(storage);
@@ -93,7 +84,6 @@ $(document).ready(function() {
     $(document).on("click", ".close-card",  function () {
         $cardId = $(this).attr('id');
         $boardIdCard = $(this).attr('role');
-        console.log($cardId + " " + $boardIdCard);
         cardDeleteConfirm(storage,id, $cardId);
         $('.cards-container').hide();
         $('.cards-container').show();
@@ -111,14 +101,13 @@ $(document).ready(function() {
             var newTitle = $('.board-title').val();
             if (newTitle !== oldTitle) {
                 storage.updateBoard(boardid, newTitle);
-                 $('#myModal').modal("hide");
+                $('#myModal').modal("hide");
                 $('.board').parent().remove();
                 $('.close-btn').parent().remove();
                 storage.getBoards(document.getBoardsCallback);
+                $('.board-title').val("");
             }
         });
-
-
     });
 
     $(document).on("click", ".card-pencil", function(){
@@ -136,7 +125,7 @@ $(document).ready(function() {
             $('.card-link').show(1000);
             $('.list-group-flush').empty();
             storage.getCardsForBoards(document.getCardsForBoardsCallback, id);
+            $('.card-input').val("");
+        });
     });
-
 });
-    });
